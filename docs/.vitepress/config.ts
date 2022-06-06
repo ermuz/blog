@@ -381,7 +381,7 @@ export default defineConfig({
     title: 'ermuz',
     description: '二木的博客',
     lang: 'zh-CN',
-    base: '/blog/',
+    base: '/blog',
     // srcDir: 'src',
     outDir: '../dist',
     markdown: {
