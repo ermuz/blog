@@ -6,7 +6,7 @@ hero:
   name: 二木
   text: 记录前端成长之路
   image: # logo
-    src: /images/logo.png
+    src: /logo.png
     # alt:
 
 
