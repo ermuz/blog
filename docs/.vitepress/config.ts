@@ -393,10 +393,10 @@ export default defineConfig({
     lastUpdated: true,
     head: [
         // fav
-        ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/logo.png" }]
+        ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/blog/logo.png" }]
     ],
     themeConfig: {
-        logo: '/logo.png',
+        logo: '/blog/logo.png',
         siteTitle: '二木的博客', // nav title 默认是 app.title
         // 编辑当前页面的链接
         editLink: {
