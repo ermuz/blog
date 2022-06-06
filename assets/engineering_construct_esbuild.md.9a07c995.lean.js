@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as n}from"./app.ff387c96.js";const l='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"engineering/construct/esbuild.md","lastUpdated":1654538391000}',r={name:"engineering/construct/esbuild.md"};function a(s,c,o,i,d,p){return n(),t("div")}var u=e(r,[["render",a]]);export{l as __pageData,u as default};
