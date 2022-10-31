@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import type { DefaultTheme } from 'vitepress/types/default-theme'
 
 const menu = [
     {
@@ -50,12 +51,30 @@ const menu = [
                 text: 'JavaScript',
                 items: [
                     {
-                        text: 'es5',
-                        link: '/three-musketeers/js/es5',
+                        text: '基础',
+                        link: '/three-musketeers/js/basic',
+                        activeMatch: `^/three-musketeers/js/basic`,
+                        items: [
+                            {
+                                text: 'es5',
+                                link: '/three-musketeers/js/basic/es5'
+                            },
+                            {
+                                text: 'es6+',
+                                link: '/three-musketeers/js/basic/es6+',
+                            }
+                        ]
                     },
                     {
-                        text: 'es6+',
-                        link: '/three-musketeers/js/es6-plus',
+                        text: '进阶',
+                        link: '/three-musketeers/js/advance',
+                        activeMatch: `^/three-musketeers/js/advance`,
+                        items: [
+                            {
+                                text: '事件循环',
+                                link: '/three-musketeers/js/advance/event-loop'
+                            }
+                        ]
                     }
                 ]
             }
@@ -235,8 +254,14 @@ const menu = [
                 text: '浏览器',
                 items: [
                     {
-                        text: '原理',
-                        link: '/brower-computer-network/brower/abc'
+                        text: '基础',
+                        link: '/brower-computer-network/brower/abc',
+                        items: [
+                            {
+                                text: '缓存',
+                                link: '/brower-computer-network/brower/abc/cache'
+                            }
+                        ]
                     },
                     {
                         text: 'API',
@@ -327,7 +352,13 @@ const menu = [
                     },
                     {
                         text: 'ReactNative',
-                        link: '/cross-end/mobile/react-native'
+                        link: '/cross-end/mobile/react-native',
+                        items: [
+                            {
+                                text: '环境搭建',
+                                link: '/cross-end/mobile/react-native/environment-setup'
+                            }
+                        ]
                     },
                 ]
             },
@@ -372,10 +403,11 @@ const sidebar = () => {
     const side = {}
 
     menu.filter(item => item.items && item.items.some(sub => sub.items)).forEach(item => {
-        side[item.path] = item.items
+        side[item.path] = item.items;
+        // @ts-ignore
         delete item.path
     })
-    return side;
+    return side
 }
 
 export default defineConfig({
@@ -393,17 +425,20 @@ export default defineConfig({
     lastUpdated: true,
     head: [
         // fav
-        ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/blog/logo.png" }]
+        ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "logo.png" }]
     ],
     themeConfig: {
-        logo: '/blog/logo.png',
+        logo: 'logo.png',
         siteTitle: '二木的博客', // nav title 默认是 app.title
         // 编辑当前页面的链接
         editLink: {
-            repo: 'blog/docs'
+            pattern: 'blog/docs',
+            text: '编辑当前页面'
         },
+        outlineTitle: '目录',
+        outline: 'deep',
         lastUpdatedText: '最后更新时间',
-        nav: nav(),
+        nav: nav() as DefaultTheme.NavItem[],
         sidebar: sidebar(),
         // 社交链接
         socialLinks: [
@@ -412,6 +447,10 @@ export default defineConfig({
                 link: 'https://github.com/ermuz'
             }
         ],
+        docFooter: {
+            next: '下一篇',
+            prev: '上一篇'
+        },
         footer: {
             copyright: `Copyright © 2022-${new Date().getFullYear()} ermuz`
         },
