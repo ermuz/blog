@@ -88,15 +88,62 @@ const menu = [
         items: [
             {
                 text: '数据结构',
-                link: '/data-structures-and-algorithms/data-structures'
+                link: '/data-structures-and-algorithms/data-structures',
+                items: [
+                    {
+                        text: '树',
+                        link: '/data-structures-and-algorithms/data-structures/tree',
+                        items: [
+                            {
+                                text: '二叉树',
+                                link: '/data-structures-and-algorithms/data-structures/tree/binary-tree',
+                            }
+                        ]
+                    },
+                    {
+                        text: '回溯算法',
+                        link: '/data-structures-and-algorithms/data-structures/back-tracking',
+                        items: [
+                            {
+                                text: '真题',
+                                link: '/data-structures-and-algorithms/data-structures/back-tracking/example',
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 text: '算法',
-                link: '/data-structures-and-algorithms/algorithms'
+                link: '/data-structures-and-algorithms/algorithms',
+                items: [
+
+                ]
             },
             {
                 text: '手写',
-                link: '/data-structures-and-algorithms/handwriting'
+                link: '/data-structures-and-algorithms/handwriting',
+                items: [
+                    {
+                        text: '操作符',
+                        link: '/data-structures-and-algorithms/handwriting/operation',
+                    },
+                    {
+                        text: '数组',
+                        link: '/data-structures-and-algorithms/handwriting/array',
+                    },
+                    {
+                        text: '函数',
+                        link: '/data-structures-and-algorithms/handwriting/function',
+                    },
+                    {
+                        text: '对象',
+                        link: '/data-structures-and-algorithms/handwriting/object',
+                    },
+                    {
+                        text: '字符串',
+                        link: '/data-structures-and-algorithms/handwriting/string',
+                    }
+                ]
             }
         ]
     },
@@ -373,6 +420,17 @@ const menu = [
             },
         ]
     },
+    {
+        text: '软技能',
+        activeMatch: `^/soft-skill`,
+        path: '/soft-skill',
+        items: [
+            {
+                text: '摄影',
+                link: '/soft-skill/photography'
+            }
+        ]
+    }
 
 
     // {
@@ -404,8 +462,6 @@ const sidebar = () => {
 
     menu.filter(item => item.items && item.items.some(sub => sub.items)).forEach(item => {
         side[item.path] = item.items;
-        // @ts-ignore
-        delete item.path
     })
     return side
 }
@@ -458,4 +514,5 @@ export default defineConfig({
 
         // }
     }
-})
+});
+
