@@ -1,8 +1,10 @@
 # 真题
 
-## leetcode 77 组合
+## leetcode
 
-### 暴力搜索
+### 77 组合
+
+#### 暴力搜索
 
 ```js
 function combine(n, k) {
@@ -23,7 +25,7 @@ function combine(n, k) {
 };
 ```
 
-### 剪枝优化
+#### 剪枝优化
 
 来举一个例子，n = 4，k = 4的话，那么第一层for循环的时候，从元素2开始的遍历都没有意义了。 在第二层for循环，从元素3开始的遍历都没有意义了。
 
@@ -85,9 +87,9 @@ function combine(n, k) {
 };
 ```
 
-## leetcode 216 组合总和 III
+### 216 组合总和 III
 
-### 暴力搜索
+#### 暴力搜索
 
 ```js
 function combinationSum3(k, n) {
@@ -111,7 +113,7 @@ function combinationSum3(k, n) {
 };
 ```
 
-### 剪枝优化
+#### 剪枝优化
 
 1. 知道k后我们就可以组装最大的等差数列，[xxx,7,8,9], 可以得到能得到的最大值，如果最大值小于n，没必要算，提前终结
 
@@ -165,7 +167,7 @@ Your runtime beats 100 % of javascript submissions
 Your memory usage beats 92.46 % of javascript submissions (40.8 MB)
 ```
 
-## 17 电话号码的字母组合
+### 17 电话号码的字母组合
 
 ```js
 function letterCombinations (digits) {
@@ -201,7 +203,7 @@ function letterCombinations (digits) {
 };
 ```
 
-## 39 组合总和
+### 39 组合总和
 
 ```js
 function combinationSum (candidates, target) {
@@ -230,7 +232,7 @@ function combinationSum (candidates, target) {
 };
 ```
 
-## 40 组合总和 II
+### 40 组合总和 II
 
 ```js
 var combinationSum2 = function (candidates, target) {
@@ -260,6 +262,304 @@ var combinationSum2 = function (candidates, target) {
         }
     }
     backTracking()
+    return res;
+};
+```
+
+### 131 分割回文串
+
+```js
+var partition = function (s) {
+    const res = [];
+    if (s.length === 1) return [[s[0]]];
+    const path = [];
+    // 回文
+    function isPalindrome (s, l, r) {
+        for (let i = l, j = r; i < j; i++, j--) {
+            if (s[i] !== s[j]) return false;
+        }
+        return true;
+    }
+    function backTracking (startIndex = 0) {
+        if (startIndex === s.length) {
+            res.push([...path])
+        }
+        for (let i = startIndex; i < s.length; i++) {
+            if (!isPalindrome(s, startIndex, i)) continue;
+            path.push(s.slice(startIndex, i + 1));
+            backTracking(i + 1);
+            path.pop()
+        }
+    }
+    backTracking();
+    return res;
+};
+```
+
+### 93 复原IP地址
+
+```js
+var restoreIpAddresses = function (s) {
+    // 剪枝 4*1<网段长度<4*3
+    if (s.length <= 3 || s.length > 12) return [];
+    // 只有四个，那就直接四个占位
+    if (s.length === 4) return [s.split('').join('.')];
+    const res = [], path = [];
+    function backTracking (startIndex = 0) {
+        if (startIndex === s.length) {
+            res.push(path.join('.'));
+            return;
+        }
+        // startIndex + 3 切割的长度大于3就就截止
+        for (let i = startIndex; i < s.length && i < startIndex + 3; i++) {
+            const cur = s.slice(startIndex, i + 1);
+            // 剪枝操作
+            if (
+                // 字符串剩余的长度大于剩余网段的最大长度
+                s.slice(i).length > (4 - path.length) * 3
+                // 字符串剩余的长度小于剩余网段的最小长度
+                || s.slice(i).length < 4 - path.length
+                // 截取的网段大于255
+                || cur > 255
+                // 截取的网段以0开始
+                || (cur.length > 1 && cur.startsWith('0'))
+            ) {
+                break;
+            };
+            path.push(s.slice(startIndex, i + 1));
+            backTracking(i + 1);
+            path.pop()
+        }
+    }
+    backTracking();
+    return res;
+};
+```
+
+### 78 子集
+
+```js
+var subsets = function (nums) {
+    const res = [], path = [];
+    function backTracking (startIndex = 0) {
+        res.push([...path])
+        for (let i = startIndex; i < nums.length; i++) {
+            path.push(nums[i]);
+            backTracking(i + 1);
+            path.pop();
+        }
+    }
+    backTracking()
+    return res;
+};
+```
+
+### 90 子集 II
+
+```js
+var subsetsWithDup = function (nums) {
+    nums.sort((a, b) => a - b);
+    const res = [], path = [];
+    function backTracking (startIndex = 0) {
+        res.push([...path])
+        for (let i = startIndex; i < nums.length; i++) {
+            if (i > startIndex && nums[i] === nums[i - 1]) continue; // 只是增加去重，跟组合2类似 // [!code focus]
+            path.push(nums[i]);
+            backTracking(i + 1);
+            path.pop();
+        }
+    }
+    backTracking()
+    return res;
+};
+```
+
+### 491 递增子序列
+
+```js
+var findSubsequences = function (nums) {
+    if (nums.length <= 1) return [];
+    if (nums.length === 2 ) {
+        if(nums[0] <= nums[1]) return [nums]
+        return []
+    };
+    const res = [], path = [];
+    function backTracking (startIndex = 0) {
+        if (path.length > 1) {
+            res.push([...path])
+        }
+        const s = new Set();
+        for (let i = startIndex; i < nums.length; i++) {
+            if (path[path.length - 1] > nums[i] || s.has(nums[i])) continue;
+            s.add(nums[i])
+            path.push(nums[i]);
+            backTracking(i + 1);
+            path.pop();
+        }
+    }
+    backTracking()
+    return res;
+};
+```
+
+### 46 全排列
+
+```js
+var permute = function (nums) {
+    if (nums.length === 1) return [nums]
+    let res = [], path = [], used = [];
+
+    function backTracking () {
+        if (path.length === nums.length) {
+            res.push([...path])
+            return;
+        }
+        for (let i = 0; i < nums.length; i++) {
+            if (used.includes(i)) continue;
+            used.push(i);
+            path.push(nums[i]);
+            backTracking();
+            path.pop();
+            used.pop();
+        }
+    }
+    backTracking();
+    return res;
+};
+```
+
+### 47 全排列 II
+
+```js
+var permuteUnique = function (nums) {
+    if (nums.length === 1) return [nums]
+    let res = [], path = [], used = [];
+
+    function backTracking () {
+        if (path.length === nums.length) {
+            res.push([...path])
+            return;
+        }
+        let set = new Set();
+        for (let i = 0; i < nums.length; i++) {
+            if (used.includes(i) || set.has(nums[i])) continue;
+            set.add(nums[i]);
+            used.push(i);
+            path.push(nums[i]);
+            backTracking();
+            path.pop();
+            used.pop();
+        }
+    }
+    backTracking();
+    return res;
+};
+```
+
+### 51 N皇后 :star2::star2::star2:
+
+```js
+var solveNQueens = function (n) {
+    const res = [], board = Array.from({ length: n }, () => Array.from({ length: n }, _ => '.'));
+
+    function isValid (row, col) {
+        // 列比较，只比较上边
+        for (let i = 0; i < row; i++) {
+            if (board[i][col] === 'Q') return false;
+        }
+        // 左斜线
+        for (let c = col - 1, r = row - 1; c >= 0 && r >= 0; r--, c--) {
+            if (board[r][c] === 'Q') return false;
+        }
+        // 左斜线
+        for (let c = col + 1, r = row - 1; c < n && r >= 0; c++, r--) {
+            if (board[r][c] === 'Q') return false;
+        }
+        return true;
+    }
+
+    function backTracking (row = 0) {
+        if (row === n) {
+            let arr = [];
+            board.forEach(item => {
+                let s = '';
+                item.forEach(sub => {
+                    s += sub
+                })
+                arr.push(s);
+            })
+            res.push(arr);
+            return;
+        }
+        for (let c = 0; c < n; c++) {
+            if (isValid(row, c)) {
+                board[row][c] = 'Q';
+                backTracking(row + 1);
+                board[row][c] = '.';
+            }
+        }
+    }
+    backTracking();
+    return res;
+};
+```
+
+### 52 N皇后 II :star2::star2::star2:
+
+```js
+var totalNQueens = function (n) {
+    let res = 0, board = Array.from({ length: n }, _ => Array.from({ length: n }));
+
+    function isValid (col, row) {
+        for (let r = 0; r < row; r++) {
+            if (board[r][col] === 'Q') return false;
+        }
+        for (let r = row - 1, c = col - 1; r >= 0 && c >= 0; r--, c--) {
+            if (board[r][c] === 'Q') return false;
+        }
+        for (let r = row - 1, c = col + 1; r >= 0 && c < n; r--, c++) {
+            if (board[r][c] === 'Q') return false;
+        }
+        return true;
+    }
+
+    function backTracking (row = 0) {
+        if (row === n) {
+            res++;
+            return;
+        }
+        for (let c = 0; c < n; c++) {
+            if (!isValid(c, row)) continue;
+            board[row][c] = 'Q';
+            backTracking(row + 1);
+            board[row][c] = '.';
+        }
+    }
+
+    backTracking()
+
+    return res;
+};
+```
+
+### 60 排列序列  :star2::star2::star2:
+
+```js
+var getPermutation = function (n, k) {
+    let res = '', path = [], c = 0;
+    function backTracking (startIndex = 1) {
+        if (startIndex === n + 1 && ++c === k) {
+            res = path.join('');
+            return;
+        }
+        for (let i = 1; i <= n && !res; i++) {
+            if (path.includes(i)) continue;
+            path.push(i);
+            backTracking(startIndex + 1);
+            path.pop();
+        }
+    }
+    backTracking();
     return res;
 };
 ```
