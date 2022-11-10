@@ -427,7 +427,23 @@ const menu = [
         items: [
             {
                 text: '摄影',
-                link: '/soft-skill/photography'
+                link: '/soft-skill/photography',
+                items: [
+                    {
+                        text: '教程',
+                        link: '/soft-skill/photography/tutorial',
+                        items: [
+                            {
+                                text: '泰罗摄影',
+                                link: '/soft-skill/photography/tutorial/tailuo'
+                            },
+                            {
+                                text: '花间摄影',
+                                link: '/soft-skill/photography/tutorial/huajian'
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }
