@@ -1,5 +1,7 @@
 # 花间摄影
 
+[零基础系统学习人像摄影教程（中文教程）](https://www.bilibili.com/video/BV164411e7Ay/)
+
 ## 摄影基础
 
 ### 认识单反相机
@@ -67,7 +69,7 @@ f7~16、ISO 120
 - 单次自动对焦 -> 用于对精致主体对焦
 - 人工智能伺服自动对焦 -> 用于对移动主体对焦
 - 人工智能对焦 -> 如果主体移动，自动从单次对焦切换为人工自动伺服对焦
-  
+
 ##### 测光模式
 
 ###### 矩阵测光
@@ -92,4 +94,318 @@ f7~16、ISO 120
 
 曝光补偿就是有意识地变更相机自动推算出的“合适”曝光参数，让照片更明亮或者更暗的拍摄手法
 
-### 关于模特
+## 人像摄影常用的镜头和焦段
+
+### 镜头基础知识
+
+Canon  EF  50mm  f/1.2    L    USM
+
+ 品牌  系列  焦距  最大光圈        技术(超声波马达/防抖等)
+
+简称：50/1.2 or 50L
+
+镜头的焦距（Focal Length），从使用的角度可以理解为：镜头中心至胶片平面的距离
+
+红圈镜头：特指佳能的“L镜头”，这里的L代表luxury之意。在佳能的镜头体系中，所有佳能的L镜头都嗲表最高的光学素质
+
+Canon EF 24-70mm f/2.8L II USM
+
+变焦范围：3倍内，倍数太大对镜头的光学素质是一个负面影响
+
+#### 焦段
+
+![jiaoduan](/soft-skill/photography/tutorial/huajian/jiaoduan.png)
+
+广角镜头：焦距35MM以下的镜头
+
+标准镜头：它的视角在43°左右，这是照片的透视是最接近人类眼睛
+
+中段镜头：焦距为85MM~135MM的镜头，85变形最少得
+
+望远镜头：焦距为200MM以上的镜头
+
+#### 安全快门与焦距
+
+保证手持稳定拍摄的快门速度
+
+理论值：快门只不满于 **1/镜头焦距** 。假如你使用的是50mm，安全快门就是1/50秒
+
+#### 最大光圈
+
+![jiaoduan](/soft-skill/photography/tutorial/huajian/guangquan.png)
+![jiaoduan-1](/soft-skill/photography/tutorial/huajian/guangquan-1.png)
+
+#### 技术
+
+USM     Ultra Sonic Motor   超声波马达
+IS      Image Stabilizer    防抖
+
+#### 镜头俗称
+
+俗称|含义
+:-:|:-:
+套头
+狗头|素质不是很好，价格不贵
+牛头|素质很好，价格贵，佳能的L
+大三元| f2.8    16~35mm     24~70mm     70~200mm    小白
+小三元| f4      16~35mm     24~70mm     70~200mm    小小白
+大眼睛、人像镜皇| Canon EF 85mm f1.2 USM
+小痰盂| Canon EF 50mm f1.8
+百微| Canon EF 100mm f2.8
+
+#### 遮光罩
+
+1. 避免周围杂乱光线干扰成像
+2. 逆光拍摄避免眩光
+3. 保护镜头
+
+#### UV镜
+
+紫外线滤光镜（UltraViolet），起到保护镜头，提高画面质量的作用，滤除青蓝调
+
+UV镜 不好的话，可能还会副作用
+
+### 畸变、压缩景物，焦段与景深，焦段与光影
+
+#### 景物压缩
+
+长焦镜头“压缩景物”，长焦“压缩效果”
+
+广角镜头的透视畸变——近大远小的效果更加明显了，立体、边缘变形严重
+![kongjiangan-35mm](/soft-skill/photography/tutorial/huajian/kongjiangan-35mm.png)
+
+长焦镜头的透视畸变——近大远小的效果更被缩减了，扁平的透视效果
+![kongjiangan-100mm](/soft-skill/photography/tutorial/huajian/kongjiangan-100mm.png)
+
+广角镜头能够拍到人眼看不到的范围，拍出来的效果通常非常宏大
+![guangjiao](/soft-skill/photography/tutorial/huajian/guangjiao.png)
+
+长焦镜头减弱了近大远小的透视，距离感变小了，雪山离人更近
+![changjiao](/soft-skill/photography/tutorial/huajian/changjiao.png)
+
+#### 镜头的畸变
+
+35mm
+![jibian-35mm](/soft-skill/photography/tutorial/huajian/jibian-35mm.png)
+
+50mm
+![jibian-50mm](/soft-skill/photography/tutorial/huajian/jibian-50mm.png)
+
+85mm
+![jibian-50mm](/soft-skill/photography/tutorial/huajian/jibian-85mm.png)
+
+##### 焦段对比图
+
+1. 人脸变化
+   1. 16mm 鼻子很大，脸很窄，眼距宽
+   2. 50mm 恢复正常
+   3. 长焦的人脸变形就很小
+2. 后面的🌲，长焦的景物压缩
+
+![jiaoduan-diff](/soft-skill/photography/tutorial/huajian/jiaoduan-diff.gif)
+
+#### 焦段与景深，背景虚化
+
+光圈相同的情况下，焦段越长，景深越浅，背景虚化越明显
+
+![jiaoduan&jingshen-1](/soft-skill/photography/tutorial/huajian/jiaoduan&jingshen-1.png)
+![jiaoduan&jingshen-2](/soft-skill/photography/tutorial/huajian/jiaoduan&jingshen-2.png)
+
+#### 焦段与光影
+
+逆光拍摄情况下，焦段不同导致的光影效果不同尤为明显
+
+##### 广角
+
+光线比较集中，人像比较黑
+
+##### 长焦
+
+光线比较散，有点雾蒙蒙，细节比较少
+![jiaoduan&guangying-1](/soft-skill/photography/tutorial/huajian/jiaoduan&guangying-1.png)
+
+###### 解决方案
+
+1. 遮光罩
+    ![jiaoduan&guangying-3](/soft-skill/photography/tutorial/huajian/jiaoduan&guangying-3.png)
+3. 改变构图
+    ![jiaoduan&guangying-2](/soft-skill/photography/tutorial/huajian/jiaoduan&guangying-2.png)
+
+#### 总结
+
+广角镜头：拍摄范围广，远近感强，景深比较深，逆光比较集中
+长焦镜头：拍摄范围小，远近感弱，景深比较浅，逆光比较散
+
+不同焦段区别的根本：
+
+1. 把控人脸的立体感（变形）
+2. 控制画面背景的效果
+
+### 几个常用镜头35/50/85/24-70/100
+
+#### 35mm
+
+#### 50mm
+
+#### 85mm
+
+#### 24-70mm
+
+#### 100mm
+
+#### 配置
+
+- 1部全画幅单反相机
+- 1-2个定焦镜头
+- AV档，光圈1.2-2.8
+- ISO根据光线调整（不高于1600）
+- 快门自动（不低于安全快门）
+- 不用脚架、不用灯、不用反光板
+- 99%全程自然光拍着
+
+## PS、LR 基础
+
+## 构图
+
+### 三分法
+
+在人像摄影中，将人物眼睛安排在画面的何种位置，一直是人像摄影需要考虑的重点。
+
+眼睛布局， 看似简单的问题，但若是处理不当，则会直接影响画面的整体效果。
+
+取景构图的时候，我们可以选择三分法，将眼睛放在画面 1/3 的位置，这样一来，眼睛可以在画面中得到更好的突出，同时人物的眼神也更具魅力。
+
+具体构图时，可以借助液晶显示器的网格线或者取景器中的网格线帮助构图。
+
+使用三分法时，我们多会选择相机“3×3 网格线”，并将眼睛放在网格线“井字形”一条线的附近位置。
+
+![三分构图](/soft-skill/photography/tutorial/huajian/sanfen.png)
+
+### 对角线
+
+对角线构图是指人物被安排在画面的对角线位置，这种构图方式的导向性很强。
+
+在实际构图时，我们可以调整拍摄主体的身体线条，使其在画面中形成动感的斜线，并向画面的对角倾斜，也可以借助画面中背景或者陪体的线条形成对角线形式。
+
+使用对角线构图拍摄人像照片，可以在有限的画面中最大程度地展示人物身材，并赋予照片一定的动感。
+
+![对角线构图](/soft-skill/photography/tutorial/huajian/duijiaoxian.png)
+
+### 金色螺线
+
+![金色螺线构图1](/soft-skill/photography/tutorial/huajian/jinseluoxian-1.png)
+![金色螺线构图2](/soft-skill/photography/tutorial/huajian/jinseluoxian-2.png)
+
+### 对称式
+
+在拍摄美女人像时，对称式构图方法也是最常使用的构图方法也可以借助周围环境中对称的元素进行构图。
+
+![对称式](/soft-skill/photography/tutorial/huajian/duichenshi.png)
+
+### 框架式
+
+框架构图主要是用画面中景物的框架结构来包裹主体的构图方法，框架构图法具有很强的视觉引导效果，利用这一点可以将所要重点表现的主体突出呈现在画面之中，这个构图方法大部分适用拍摄外景
+
+![框架式](/soft-skill/photography/tutorial/huajian/kuangjiashi.png)
+
+### 中心构图
+
+中心构图又称居中构图，是人像中最常见的一种构图方式，中心构图是把目标的主体放在画面的中间，从而强调主体的效果，这也是我们拍摄人像中用的最多的一个构图技巧。
+
+![中心构图-1](/soft-skill/photography/tutorial/huajian/zhongxin-1.png)
+![中心构图-2](/soft-skill/photography/tutorial/huajian/zhongxin-2.png)
+![中心构图-3](/soft-skill/photography/tutorial/huajian/zhongxin-3.png)
+![中心构图-4](/soft-skill/photography/tutorial/huajian/zhongxin-4.png)
+
+### 紧凑式
+
+这种构图应用在人物主体占画面较大的范围的照片，会使画面很饱满，常用于近景拍摄，人物的眼睛处于画面偏上的位置，让整个人物充满画面。
+
+![紧凑式-1](/soft-skill/photography/tutorial/huajian/jincoushi-1.webp)
+![紧凑式-2](/soft-skill/photography/tutorial/huajian/jincoushi-2.webp)
+
+### 引导线
+
+是利用线条引导观者的目光，营造画面的纵深感。引导线不一定是具体的线，但凡有方向的、连续的东西，都可以称为引导线。
+
+现实中，道路、河流、颜色、阴影甚至人的目光都可以当做引导线使用。
+
+![引导线-1](/soft-skill/photography/tutorial/huajian/yindaoxian-1.webp)
+![引导线-2](/soft-skill/photography/tutorial/huajian/yindaoxian-2.png)
+![引导线-3](/soft-skill/photography/tutorial/huajian/yindaoxian-3.png)
+
+### 黄金比例
+
+![huangjinfenge-1](/soft-skill/photography/tutorial/huajian/huangjinfenge-1.png)
+![huangjinfenge-2](/soft-skill/photography/tutorial/huajian/huangjinfenge-2.png)
+
+### 前景
+
+前景在人像摄影应用非常多，摄影师对前景的关注度远比背景要高，一般用前景构图分为两种，一种是通过前景渲染画面的气氛，一般用花朵、树叶或者其他东西遮挡做前景，用大光圈虚化前景，不仅突出主体给画面增加了空间感，还使画面更加梦幻，柔美。
+
+另外一种是让画面更有故事性的前景构图方式，适当地运用小光圈，虚实结合在交代的前景的同时又可以突出重点。
+
+![qianjing-1](/soft-skill/photography/tutorial/huajian/qianjing-1.png)
+![qianjing-2](/soft-skill/photography/tutorial/huajian/qianjing-2.png)
+
+## 色彩的表达跟应用
+
+### 色彩基础知识
+
+#### 色彩的三要素
+
+#### 色相
+
+是色与色之间的差别所在，是区别色彩种类的名称。在原色与间色之间可区分出许多不同的色相，人的眼睛可以辨别出几万甚至几十万种颜色。
+
+#### 饱和度
+
+是指色彩的纯净程度。纯度的变化可通过三原色互混产生，也可以通过加白、加黑、加灰产生，还可以补色相混产生。凡有纯度的色彩必有相应的色相感。色相感越明确、纯净，其色彩纯度越纯，反之，则越灰。纯度较低，色彩相对也较柔和，适合于生活妆；纯度很高的色彩应慎用。
+
+#### 明度
+
+是指色彩的明暗程度，是表现色彩层次感的基础。
+
+在无彩色系中，白色明度最高，黑色明度最低，在黑白之间存在一系列灰色，靠近白的部分称为明灰色，靠近黑的部分称为暗灰色。任何一个有彩色，当它掺入白色时，明度提高，当它掺入黑色时，明度降低。同时其纯度也相应降低。
+
+### 色彩传递的情感
+
+![secaiqinggan-1](/soft-skill/photography/tutorial/huajian/secaiqinggan-1.png)
+
+#### 色彩是客观的，色调是主观的
+
+![secai&sediao](/soft-skill/photography/tutorial/huajian/secai&sediao.png)
+
+#### 色彩的冷暖
+
+![secaidelengnuan](/soft-skill/photography/tutorial/huajian/secaidelengnuan.png)
+
+### 照片色彩搭配的小技巧
+
+#### 同类色、对比色
+
+![tongleise&duibise](/soft-skill/photography/tutorial/huajian/tongleise&duibise.png)
+
+#### 关注比利用流行色
+
+![liuxingse](/soft-skill/photography/tutorial/huajian/liuxingse.png)
+
+#### 慎用高饱和度的三原色
+
+![shenyongsanyuanse](/soft-skill/photography/tutorial/huajian/shenyongsanyuanse.png)
+
+#### 利用服装颜色和道具颜色做搭配
+
+![fuzhaung&daoju](/soft-skill/photography/tutorial/huajian/fuzhaung&daoju.png)
+
+### 色彩管理，让你的照片不偏色
+
+TODO:
+
+## 说有光，于是就有了光
+
+### 物体的影调
+
+### 光位、光的要素
+
+### 利用现场光
