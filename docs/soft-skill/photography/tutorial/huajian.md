@@ -398,14 +398,171 @@ UV镜 不好的话，可能还会副作用
 
 ![fuzhaung&daoju](/soft-skill/photography/tutorial/huajian/fuzhaung&daoju.png)
 
+#### 注意人物肤色和发色
+
+##### 肤色
+
+正常自然光下，人的肤色呈现在橙色和黄色之间，暗部也会带一点红色。
+
+![renwufuse-1](/soft-skill/photography/tutorial/huajian/renwufuse-1.png)
+![renwufuse-2](/soft-skill/photography/tutorial/huajian/renwufuse-2.png)
+
+##### 发色
+
+正常自然光下，最适合拍照的发色是自然棕色。
+
+![fase-1](/soft-skill/photography/tutorial/huajian/fase-1.png)
+
+#### “高级色”怎么来的
+
+##### 高级灰
+
+高级灰在水粉画中高级灰特指 一个色系或一组色。色彩经过调合纯度通常偏低给人的感觉和谐，而不是单独一个色。 因为色彩的运用关键在于搭配，没有一个色是独立存在。
+
+高级灰柔和，平静，稳重，和谐，统一，不强烈，不刺眼，没有冲突，色彩内含的元素是复杂的而非单纯的。这是一种存在于现实生活中的色彩。
+
+![gaojihui-1](/soft-skill/photography/tutorial/huajian/gaojihui-1.png)
+
+##### 莫兰迪色
+
+通俗来说就是没那么鲜艳，有点灰蒙蒙感觉的颜色。因为加入了一定比例的灰色，或者说颜色饱和度降低，看起来很温柔，也很高级。
+
+对比度比较低，饱和度也不高
+
+![molandihui-1](/soft-skill/photography/tutorial/huajian/molandihui-1.png)
+![molandihui-2](/soft-skill/photography/tutorial/huajian/molandihui-2.png)
+![molandihui-3](/soft-skill/photography/tutorial/huajian/molandihui-3.png)
+![molandihui-4](/soft-skill/photography/tutorial/huajian/molandihui-4.png)
+![molandihui-5](/soft-skill/photography/tutorial/huajian/molandihui-5.png)
+![molandihui-6](/soft-skill/photography/tutorial/huajian/molandihui-6.png)
+
 ### 色彩管理，让你的照片不偏色
 
-TODO:
+#### RGB 与 CMYK
+
+**印刷四色模式**是彩色印刷时采用的一种套色模式，利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，行成所谓“全彩印刷”。
+
+![rgb&cmyk-1](/soft-skill/photography/tutorial/huajian/rgb&cmyk-1.png)
+
+#### 色彩空间
+
+Adobe RGB: 包含了所有 cmyk 的色彩，色彩层次更好，印刷当中更有优势
+
+sRGB：运用比较广，色彩范围比较窄。
+
+![sRGB-1](/soft-skill/photography/tutorial/huajian/sRGB-1.png)
+
+##### 色差就出现在不同色彩空间的转换中
+
+![secha](/soft-skill/photography/tutorial/huajian/secha.png)
+
+##### sRGB 和 Adobe RGB 怎么选
+
+如果要输出打印照片，请选择sRGB的大容量RAW格式
+
+色彩空间：
+
+1. 单反：sRGB
+2. PS: Camera RAW sRGB
+   1. sRGB: IEC61966-2.1
+   2. CMYK: Japan Color 2001 Coated
+3. LR: 相信它的色彩空间
 
 ## 说有光，于是就有了光
 
 ### 物体的影调
 
+物体的5个影调：高光、暗面、灰面、反光面、投影
+
+![yingdiao-1](/soft-skill/photography/tutorial/huajian/yingdiao-1.png)
+
+影响影调的因素：
+
+1. 物体的形态
+2. 物体的质地
+3. 广的方向
+4. 光的质量
+5. 观察者的角度
+
 ### 光位、光的要素
 
+#### 广位
+
+广位：顺光、前侧光、侧光、侧逆光、逆光、顶光、低光
+
+![guangwei-1](/soft-skill/photography/tutorial/huajian/guangwei-1.png)
+
+##### 顺光
+
+主体被均匀照亮，阴影在后面，看不到阴影，光影比较平，颜色比较鲜艳，细节相对比较丰富，人脸阴影比较少，缺乏立体感。适合服装、产品
+
+![shunguang-1](/soft-skill/photography/tutorial/huajian/shunguang-1.png)
+
+##### 逆光
+
+逆光弱化纹理
+
+![niguang-1](/soft-skill/photography/tutorial/huajian/niguang-1.png)
+
+##### 前侧光&侧逆光
+
+人脸上该有的阴影、高光都有，不会像顺光看起来那么平，不会像逆光拍摄难度那么高
+
+**前侧光高光要多一点，侧逆光阴影要多一点**
+
+![qianceguang&ceniguang-1](/soft-skill/photography/tutorial/huajian/qianceguang&ceniguang-1.png)
+![qianceguang&ceniguang-2](/soft-skill/photography/tutorial/huajian/qianceguang&ceniguang-2.png)
+
+##### 侧光
+
+侧光最能突出纹理的广位，最能凸显物体光影交错感觉的
+![ceguang-1](/soft-skill/photography/tutorial/huajian/ceguang-1.png)
+
+一般来说，光影方向和被摄主体角度越接近侧光广位，主体的纹理就越明显
+![ceguang-2](/soft-skill/photography/tutorial/huajian/ceguang-2.png)
+
+中午拍摄，接近顺光，没有立体感
+![ceguang-3](/soft-skill/photography/tutorial/huajian/ceguang-3.png)
+太阳的角度很低，接近侧光，有立体感
+![ceguang-4](/soft-skill/photography/tutorial/huajian/ceguang-4.png)
+
+旅拍日落日出提前看好时间，早点准备，把握光线
+![taiyang&guangwei](/soft-skill/photography/tutorial/huajian/taiyang&guangwei.png)
+
+![guangweiduibi](/soft-skill/photography/tutorial/huajian/guangweiduibi.png)
+
+结论：**阴影使得物体更加立体，侧光广位可以完整展示五大调子**
+
+![meishi-1](/soft-skill/photography/tutorial/huajian/meishi-1.png)
+
+展示主题的通透，侧逆光、逆光
+![meishi-2](/soft-skill/photography/tutorial/huajian/meishi-2.png)
+
+迈卡龙
+![meishi-3](/soft-skill/photography/tutorial/huajian/meishi-3.png)
+![meishi-4](/soft-skill/photography/tutorial/huajian/meishi-4.png)
+![meishi-5](/soft-skill/photography/tutorial/huajian/meishi-5.png)
+
+房间整体环境光线比较暗，唯一的光线来源是窗口自然光，拍摄时机位放低，形成逆光和侧逆光
+
+#### 广的要素
+
+1. 方向（广位）
+2. 强度
+3. 颜色：早晚自然光颜色不一致
+4. 软硬
+   ![guangderuanying](/soft-skill/photography/tutorial/huajian/guangderuanying.png)
+5. 面积
+   ![guangdemianji](/soft-skill/photography/tutorial/huajian/guangdemianji.png)
+
+   大面积的光源，比如落地窗，等等，光线照亮的方位发，物体受光均匀，阴影少。
+
+   小面积或被集中的光源，光线照亮的范围小，物体局部小，受光的部分被照亮，没有受光的部分为阴影
+
+   **适当的阴影是得物体更加立体**
+
 ### 利用现场光
+
+#### 辅助光（补光工具——反光板）
+
+![fanguangban-1](/soft-skill/photography/tutorial/huajian/fanguangban-1.png)
