@@ -480,15 +480,15 @@ sRGB：运用比较广，色彩范围比较窄。
 
 1. 物体的形态
 2. 物体的质地
-3. 广的方向
+3. 光的方向
 4. 光的质量
 5. 观察者的角度
 
 ### 光位、光的要素
 
-#### 广位
+#### 光位
 
-广位：顺光、前侧光、侧光、侧逆光、逆光、顶光、低光
+光位：顺光、前侧光、侧光、侧逆光、逆光、顶光、低光
 
 ![guangwei-1](/soft-skill/photography/tutorial/huajian/guangwei-1.png)
 
@@ -515,10 +515,10 @@ sRGB：运用比较广，色彩范围比较窄。
 
 ##### 侧光
 
-侧光最能突出纹理的广位，最能凸显物体光影交错感觉的
+侧光最能突出纹理的光位，最能凸显物体光影交错感觉的
 ![ceguang-1](/soft-skill/photography/tutorial/huajian/ceguang-1.png)
 
-一般来说，光影方向和被摄主体角度越接近侧光广位，主体的纹理就越明显
+一般来说，光影方向和被摄主体角度越接近侧光光位，主体的纹理就越明显
 ![ceguang-2](/soft-skill/photography/tutorial/huajian/ceguang-2.png)
 
 中午拍摄，接近顺光，没有立体感
@@ -531,7 +531,7 @@ sRGB：运用比较广，色彩范围比较窄。
 
 ![guangweiduibi](/soft-skill/photography/tutorial/huajian/guangweiduibi.png)
 
-结论：**阴影使得物体更加立体，侧光广位可以完整展示五大调子**
+结论：**阴影使得物体更加立体，侧光光位可以完整展示五大调子**
 
 ![meishi-1](/soft-skill/photography/tutorial/huajian/meishi-1.png)
 
@@ -545,9 +545,9 @@ sRGB：运用比较广，色彩范围比较窄。
 
 房间整体环境光线比较暗，唯一的光线来源是窗口自然光，拍摄时机位放低，形成逆光和侧逆光
 
-#### 广的要素
+#### 光的要素
 
-1. 方向（广位）
+1. 方向（光位）
 2. 强度
 3. 颜色：早晚自然光颜色不一致
 4. 软硬
