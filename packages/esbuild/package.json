@@ -1,0 +1,12 @@
+{
+    "name": "@ermuz/esbuild",
+    "version": "1.0.0",
+    "module": "node16",
+    "scripts": {
+        "build": "ts-node ./scripts/build.ts"
+    },
+    "devDependencies": {
+        "esbuild": "^0.15.14",
+        "ts-node": "^10.9.1"
+    }
+}

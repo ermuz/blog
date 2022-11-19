@@ -1,24 +1,20 @@
 {
     "name": "blog",
     "version": "1.0.0",
-    "main": "index.js",
     "repository": "https://github.com/ermuz/blog.git",
     "author": "ermuz <zhanglin_sc@163.com>",
     "license": "MIT",
-    "scripts": {
-        "dev": "vitepress dev docs --open",
-        "build": "vitepress build docs",
-        "serve": "vitepress serve docs"
-    },
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
     "devDependencies": {
         "@types/node": "^18.11.9",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "eslint": "^8.17.0",
         "prettier": "^2.6.2",
-        "ts-node": "^10.9.1",
-        "tsconfig-paths": "^4.1.0",
-        "typescript": "^4.9.3",
-        "vitepress": "^1.0.0-alpha.25"
+        "typescript": "^4.9.3"
     }
 }

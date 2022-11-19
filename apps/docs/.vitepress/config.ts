@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import type { DefaultTheme } from 'vitepress/types/default-theme'
+import { resolve } from 'path';
 
 const menu = [
     {
@@ -482,13 +483,17 @@ const sidebar = () => {
     return side
 }
 
+console.log(__dirname)
+
+const root = resolve(__dirname, '../');
+
 export default defineConfig({
     title: 'ermuz',
     description: '二木的博客',
     lang: 'zh-CN',
     base: '/blog/',
-    // srcDir: 'src',
-    outDir: '../dist',
+    srcDir: resolve(root),
+    outDir: resolve(root, './dist'),
     markdown: {
         theme: 'material-palenight',
         lineNumbers: true

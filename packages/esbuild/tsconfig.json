@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "node16"
+    },
+    "extends": "@ermuz/config/tsconfig.json"
+}
