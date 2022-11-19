@@ -11,10 +11,14 @@
         "serve": "vitepress serve docs"
     },
     "devDependencies": {
+        "@types/node": "^18.11.9",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "eslint": "^8.17.0",
         "prettier": "^2.6.2",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.1.0",
+        "typescript": "^4.9.3",
         "vitepress": "^1.0.0-alpha.25"
     }
 }
