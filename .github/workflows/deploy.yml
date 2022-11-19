@@ -19,15 +19,12 @@ jobs:
           cache-dependency-path: "**/yarn.lock"
       - run: yarn install --frozen-lockfile
 
-      - name: cd dir
-        run: cd ./apps/docs && pwd
-
       - name: Build
-        run: pwd && yarn build
+        run: yarn workspace docs build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./apps/docs/dist
           # cname: example.com # if wanna deploy to custom domain
