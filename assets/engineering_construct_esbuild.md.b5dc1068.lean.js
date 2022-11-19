@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as n}from"./app.dd3b9e0b.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"engineering/construct/esbuild.md","lastUpdated":1654538391000}'),r={name:"engineering/construct/esbuild.md"};function s(a,c,o,i,d,p){return n(),t("div")}const u=e(r,[["render",s]]);export{l as __pageData,u as default};
