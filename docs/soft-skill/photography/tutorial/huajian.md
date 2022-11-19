@@ -234,6 +234,7 @@ UV镜 不好的话，可能还会副作用
 #### 总结
 
 广角镜头：拍摄范围广，远近感强，景深比较深，逆光比较集中
+
 长焦镜头：拍摄范围小，远近感弱，景深比较浅，逆光比较散
 
 不同焦段区别的根本：
@@ -566,3 +567,186 @@ sRGB：运用比较广，色彩范围比较窄。
 #### 辅助光（补光工具——反光板）
 
 ![fanguangban-1](/soft-skill/photography/tutorial/huajian/fanguangban-1.png)
+![fanguangban-2](/soft-skill/photography/tutorial/huajian/fanguangban-2.png)
+![fanguangban-3](/soft-skill/photography/tutorial/huajian/fanguangban-3.png)
+![fanguangban-4](/soft-skill/photography/tutorial/huajian/fanguangban-4.png)
+
+#### 眼神光
+
+![yanshenguang-1](/soft-skill/photography/tutorial/huajian/yanshenguang-1.png)
+![maoyanguang-1](/soft-skill/photography/tutorial/huajian/maoyanguang-1.png)
+![maoyanguang-2](/soft-skill/photography/tutorial/huajian/maoyanguang-2.png)
+
+#### 寻找利用环境光
+
+##### 自带反射光的环境
+
+![zidaihuansheguang-1](/soft-skill/photography/tutorial/huajian/zidaifansheguang-1.png)
+
+##### 大房间中充满光线的小窗户
+
+![dafanjianxiaochuanghu-1](/soft-skill/photography/tutorial/huajian/dafanjianxiaochuanghu-1.png)
+
+##### 被分割开来的大面积窗子或光线
+
+![fanguangban-2](/soft-skill/photography/tutorial/huajian/fanguangban-2.png)
+
+##### 在暗调背景前，被光线照亮的被摄物体
+
+![anbeijing-1](/soft-skill/photography/tutorial/huajian/anbeijing-1.png)
+![anbeijing-2](/soft-skill/photography/tutorial/huajian/anbeijing-2.png)
+
+##### 在暗光条件下，制造利用轮廓光拍摄
+
+![anguang-1](/soft-skill/photography/tutorial/huajian/anguang-1.png)
+![anguang-2](/soft-skill/photography/tutorial/huajian/anguang-2.png)
+
+**我抓住了光线——我捕获了他的飞行轨迹！**
+
+### 逆光拍摄于后期方法全解析
+
+#### 拍摄时间段和天气、季节
+
+![taiyang&guangwei](/soft-skill/photography/tutorial/huajian/taiyang&guangwei.png)
+
+日出时间可利用时间短
+![richu-1](/soft-skill/photography/tutorial/huajian/richu-1.png)
+![riluo-1](/soft-skill/photography/tutorial/huajian/riluo-1.png)
+
+##### 季节
+
+日落点不一样
+
+![jijie-1](/soft-skill/photography/tutorial/huajian/jijie-1.png)
+![jijie-2](/soft-skill/photography/tutorial/huajian/jijie-2.png)
+
+冬天长白山，下午两三点可以拍逆光
+
+![jijie-3](/soft-skill/photography/tutorial/huajian/jijie-3.png)
+![jijie-4](/soft-skill/photography/tutorial/huajian/jijie-4.png)
+![jijie-5](/soft-skill/photography/tutorial/huajian/jijie-5.png)
+![jijie-6](/soft-skill/photography/tutorial/huajian/jijie-6.png)
+
+#### 场地场景，服装和模特的搭配
+
+##### 场地场景
+
+![changdi-1](/soft-skill/photography/tutorial/huajian/changdi-1.png)
+![changdi-2](/soft-skill/photography/tutorial/huajian/changdi-2.png)
+![changdi-3](/soft-skill/photography/tutorial/huajian/changdi-3.png)
+
+##### 服装
+
+浅色系、好搭配的，唯美的照片，稍微透光的性质的衣服
+![fuzhuang-1](/soft-skill/photography/tutorial/huajian/fuzhuang-1.png)
+浅棕色头发
+![fuzhuang-2](/soft-skill/photography/tutorial/huajian/fuzhuang-2.png)
+毛衣,有亮边所以人的轮廓就出来的
+![fuzhuang-3](/soft-skill/photography/tutorial/huajian/fuzhuang-3.png)
+
+#### 逆光拍摄的补光技巧
+
+最大的问题：第二光源，手肘
+![buguang-1](/soft-skill/photography/tutorial/huajian/buguang-1.png)
+最大的问题：补光太硬
+![buguang-2](/soft-skill/photography/tutorial/huajian/buguang-2.png)
+
+#### 逆光焦段的选择
+
+![niguangjiaoduan-1](/soft-skill/photography/tutorial/huajian/niguangjiaoduan-1.png)
+
+24-70mm 变焦镜头 24可以拍逆光背影，70可以拍侧逆光
+![niguangjiaoduan-2](/soft-skill/photography/tutorial/huajian/niguangjiaoduan-2.png)
+
+35mm、85mm 定焦镜头
+![niguangjiaoduan-3](/soft-skill/photography/tutorial/huajian/niguangjiaoduan-3.png)
+
+50mm 定焦 小痰盂
+可近可远，可全身、可特写，一个镜头必然是50mm，两个镜头就35、85mm
+![niguangjiaoduan-4](/soft-skill/photography/tutorial/huajian/niguangjiaoduan-4.png)
+
+#### 相机的设定，对焦测光方法
+
+##### 相机的设定
+
+![xiangjidesheding](/soft-skill/photography/tutorial/huajian/xiangjisheding.png)
+
+##### 对焦
+
+中间点对焦、二次构图
+
+###### 无法对焦的原因
+
+DSLR的对焦技术：Phase Detection 相机检测
+
+###### 对焦位置
+
+![celian&yyinanjiaojie](/soft-skill/photography/tutorial/huajian/celian&yyinanjiaojie.png)
+
+侧脸轮廓或者阴暗交界处
+
+#### 逆光构图技巧、任务动作引导
+
+太阳放在头发边缘：利用人当初一部分光线，比较容易对焦；可以让头发丝呈现出一丝一丝亮晶晶
+![niguanggoutu-1](/soft-skill/photography/tutorial/huajian/niguanggoutu-1.png)
+
+两个人：太阳放在两人之间或一个人头顶
+![niguanggoutu-2](/soft-skill/photography/tutorial/huajian/niguanggoutu-2.png)
+
+广角拍逆光，容易脸黑 -> 人物背影或者侧脸，对角对鼻子和下巴很容易
+![niguanggoutu-3](/soft-skill/photography/tutorial/huajian/niguanggoutu-3.png)
+
+光影随行，为了更好体验逆光，可以加入一些阴影，增加一些透光、半透明的物体 -> 小花、衣服、首饰、透明塑料纸
+小花
+![niguanggoutu-4](/soft-skill/photography/tutorial/huajian/niguanggoutu-4.png)
+![niguanggoutu-5](/soft-skill/photography/tutorial/huajian/niguanggoutu-5.png)
+
+透明塑料纸
+![niguanggoutu-6](/soft-skill/photography/tutorial/huajian/niguanggoutu-6.png)
+
+#### 几种不同类型的逆光及其拍摄方法
+
+##### 侧逆光
+
+画面的光比会比平衡，背景和人脸都比较平衡，头发、衣服还有轮廓光
+![niguangleixing-1](/soft-skill/photography/tutorial/huajian/niguangleixing-1.png)
+![niguangleixing-2](/soft-skill/photography/tutorial/huajian/niguangleixing-2.png)
+
+##### 逆光
+
+![niguangleixing-3](/soft-skill/photography/tutorial/huajian/niguangleixing-3.png)
+
+##### 光斑型逆光
+
+![niguangleixing-4](/soft-skill/photography/tutorial/huajian/niguangleixing-4.png)
+
+小光圈很容易出现放射状星芒，大光圈圆形
+![niguangleixing-5](/soft-skill/photography/tutorial/huajian/niguangleixing-5.png)
+
+##### 雾化型逆光
+
+长焦(85 100 135mm)镜头再逆光时会呈现这种柔和的光线笼罩着整个画面，有点雾蒙蒙的感觉
+![niguangleixing-6](/soft-skill/photography/tutorial/huajian/niguangleixing-6.png)
+![niguangleixing-7](/soft-skill/photography/tutorial/huajian/niguangleixing-7.png)
+
+##### 避免逆光脸黑的办法
+
+1. 不拍正脸，拍侧脸或者背影
+2. 反光板适当补光
+3. 没有反光板，尝试中长焦
+4. 寻找暗调背景，平衡光比
+5. 最后，黑了就黑了
+
+#### 后期
+
+### 拍摄前的准备
+
+**培养自己用摄影师的思维方式去观察身边的一切**
+
+#### 灵感
+
+#### 主题、构思
+
+#### 服装 、场景 、道具
+
+#### 为你的客片做准备
