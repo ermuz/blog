@@ -275,7 +275,7 @@ const esbuildPatchPlugin = {
 
 `Vite 1.x` 版本中使用 `Rollup` 来做这件事情，但 `Esbuild` 的性能实在是太恐怖了，`Vite 2.x` 果断采用 `Esbuild` 来完成第三方依赖的预构建，至于性能到底有多强，大家可以参照它与传统打包工具的性能对比图:
 
-![性能对比图](/engineering/construct/vite/build-tools-benchmark.awebp)
+![性能对比图](/engineering/construct/vite/build-tools-benchmark.webp)
 
 当然，`Esbuild` 作为打包工具也有一些缺点。
 
@@ -292,7 +292,7 @@ const esbuildPatchPlugin = {
 
 当 `Vite` 使用 `Esbuild` 做单文件编译之后，提升可以说相当大了，我们以一个巨大的 `50MB+` 的纯代码文件为例，来对比 `Esbuild、Babel、TSC` 包括 `SWC` 的编译性能:
 
-![build-performance](/engineering/construct/vite/build-performance.awebp)
+![build-performance](/engineering/construct/vite/build-performance.webp)
 
 可以看到，虽然 `Esbuild Transfomer` 能带来巨大的性能提升，但其自身也有局限性，最大的局限性就在于 `TS` 中的类型检查问题。这是因为 `Esbuild` 并没有实现 `TS` 的类型系统，在编译 `TS`(或者 `TSX`) 文件时仅仅抹掉了类型相关的代码，暂时没有能力实现类型检查。
 
