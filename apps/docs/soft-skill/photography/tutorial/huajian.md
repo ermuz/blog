@@ -741,12 +741,136 @@ DSLR的对焦技术：Phase Detection 相机检测
 
 ### 拍摄前的准备
 
-**培养自己用摄影师的思维方式去观察身边的一切**
+培养自己用摄影师的思维方式去观察身边的一切
 
 #### 灵感
 
+##### 来源——照片
+
+看到一张特别好看的照片，存到手机上，之后所思考的才是你能从这张照片学到的能为之所用的
+
+摄影师的思维方式
+
+- 是自然光还是人造光？
+- 服装造型是怎么搭配的，衣服为什么呈现了这样的质感
+- 光线为什么是这样的
+- 模特神情状态是怎么设计的
+- 颜色的搭配是怎样的
+- 怎么取的景
+
+##### 来源——网站/杂志
+
+国内：POCO、图虫
+国外：www.stylemepretty.com
+
+###### 摄影师个人网站
+
+- Tatiana Mikhina 俄罗斯摄影师，少怒人像
+- Rebecca Litchfield 女摄影师 废墟人像
+- Paulina Maciejewska 波兰摄影师 清新暖调
+- Vicienne Mok 法国摄影社 柔美、私房
+- Ekaterina Efremova 俄罗斯女摄影师 儿童
+- Ravena July 个性人像
+- Valentin Duciel 自由风格人像
+- Ben Parker 德国摄影师 性感唯美阳光
+- Dennis Miles 美国90后摄影师 唯美胶片
+
+###### 杂志
+
+- 《COCO ISSUE》
+- 《COCO BRIDE》
+- 《The Wedding Playbook》
+- 《The Bride's Tree》
+- 《Wedding Vibes》
+- 《Sweet Violet Bride》
+- 《Flutter》
+
+###### APP
+
+- Pinterest
+- 小红书
+
+##### 服装、首饰
+
+##### 一首歌/一部电影🎬
+
+##### 一个地方
+
+##### 模特
+
 #### 主题、构思
 
-#### 服装 、场景 、道具
+##### 轻复古
+
+适当地将一些复古元素运用到造型和环境只能够，妙哉色彩的打牌和人物的姿态上，也流露出一种自然而从容的怀旧感
+8888
+![qingfugu-1](/soft-skill/photography/tutorial/huajian/qingfugu-1.png)
+![qingfugu-2](/soft-skill/photography/tutorial/huajian/qingfugu-2.png)
+![qingfugu-3](/soft-skill/photography/tutorial/huajian/qingfugu-3.png)
+
+#### 服装、场景、道具
+
+##### 场景
+
+1. 场景光线条件
+2. 场景色调特点
+3. 可以利用的其他特点
+
+培养自己尝试用摄影是的思维方式和视角起观察身边的一切
+
+##### 道具
+
+道具为人服务
 
 #### 为你的客片做准备
+
+### 色调后期处理实录
+
+#### 通透
+
+#### 何为通透？
+
+通明透亮，常用义为通彻、明白。
+
+#### 为何不通透？
+
+1. 由于器材引起的
+   1. 镜头瑕疵
+   2. 滤镜
+2. 由于拍摄技术引起的
+   1. 曝光不准
+   2. 色温不准
+   3. 高ISO
+   4. 焦点不实
+3. 环境
+
+#### 如何解决
+
+可通过LR基本调节解决
+
+- 饱和度不够
+- 图片偏色
+- 亮部没有细节、暗部黑不够
+- 阴影细节不够
+- 对比度不够
+- 清晰度不够
+
+曲线通道调整、相机校准、可选颜色 ...
+
+- 光色互相干扰
+- 光色过渡混合
+- 光色互补色干扰
+
+#### 光色缓和的原理
+
+##### 三原色
+
+![三原色](/soft-skill/photography/tutorial/huajian/sanyuanse-1.png)
+
+##### 支持色、互补色
+
+![支持色、互补色](/soft-skill/photography/tutorial/huajian/zhichise&hubuse.png)
+
+#### 复古风格LR调色
+
+#### 森系风格LR调色

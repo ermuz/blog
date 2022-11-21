@@ -1,0 +1,12 @@
+{
+    "name": "@ermuz/rollup",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "rollup -c rollup.config.ts --configPlugin typescript"
+    },
+    "devDependencies": {
+        "@rollup/plugin-alias": "^4.0.2",
+        "@rollup/plugin-typescript": "^9.0.2",
+        "rollup": "^3.3.0"
+    }
+}

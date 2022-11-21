@@ -1,0 +1,15 @@
+{
+    "extends": "@ermuz/config/tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "declaration": true,
+        "declarationDir": "./dist",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        }
+    }
+}

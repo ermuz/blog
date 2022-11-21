@@ -2,7 +2,7 @@
     "name": "docs",
     "version": "1.0.0",
     "scripts": {
-        "dev": "vitepress dev ./ --open",
+        "dev": "vitepress dev ./ --open --fs.strict=",
         "build": "vitepress build ./",
         "serve": "vitepress serve ./"
     },
