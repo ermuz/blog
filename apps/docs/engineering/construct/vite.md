@@ -352,9 +352,9 @@ const esbuildPatchPlugin = {
 
 无论是开发阶段还是生产环境，`Vite` 都根植于 `Rollup` 的插件机制和生态。`Vite` 的做法是从头到尾根植于的 `Rollup` 的生态，设计了和 `Rollup` 非常吻合的插件机制，而 `Rollup` 作为一个非常成熟的打包方案，从诞生至今已经迭代了六年多的时间，npm 年下载量达到上亿次，产物质量和稳定性都经历过大规模的验证。某种程度上说，这种根植于已有成熟工具的思路也能打消或者降低用户内心的疑虑，更有利于工具的推广和发展。
 
-### Esbuild 功能使用与插件开发
+## Esbuild 功能使用与插件开发
 
-#### 为什么 Esbuild 性能极高
+### 为什么 Esbuild 性能极高
 
 Esbuild 是由 Figma 的 CTO 「Evan Wallace」基于 Golang 开发的一款打包工具，相比传统的打包工具，主打性能优势，在构建速度上可以比传统工具快 10~100 倍。那么，它是如何达到这样超高的构建性能的呢？主要原因可以概括为 4 点。
 
@@ -366,13 +366,13 @@ Esbuild 是由 Figma 的 CTO 「Evan Wallace」基于 Golang 开发的一款打�
 
 4. **高效的内存利用**。Esbuild 中从头到尾尽可能地复用一份 AST 节点数据，而不用像 JS 打包工具中频繁地解析和传递 AST 数据（如 string -> TS -> JS -> string)，造成内存的大量浪费。
 
-#### Esbuild 功能使用
+### Esbuild 功能使用
 
-#### Esbuild 插件开发
+### Esbuild 插件开发
 
 我们在使用 `Esbuild` 的时候难免会遇到一些需要加上自定义插件的场景，并且 `Vite` 依赖预编译的实现中大量应用了 `Esbuild` 插件的逻辑。因此，插件开发是 `Esbuild` 中非常重要的内容，
 
-##### 基本概念
+#### 基本概念
 
 插件开发其实就是基于原有的体系结构中进行扩展和自定义。 `Esbuild` 插件也不例外，通过 `Esbuild` 插件我们可以扩展 `Esbuild` 原有的路径解析、模块加载等方面的能力，并在 `Esbuild` 的构建过程中执行一系列自定义的逻辑。
 
@@ -404,9 +404,9 @@ require('esbuild').build({
 
 ```
 
-##### 钩子函数的使用
+#### 钩子函数的使用
 
-###### `onResolve` 钩子 和 `onLoad` 钩子
+##### `onResolve` 钩子 和 `onLoad` 钩子
 
 `onResolve` 和 `onLoad` ，分别控制路径解析和模块内容加载的过程。
 
@@ -535,7 +535,7 @@ export interface OnLoadResult {
 
 ```
 
-###### 其他钩子
+##### 其他钩子
 
 在 `build` 对象中，除了 `onResolve` 和 `onLoad`，还有 `onStart` 和 `onEnd` 两个钩子用来在构建开启和结束时执行一些自定义的逻辑，使用上比较简单，如下面的例子所示:
 
@@ -563,7 +563,7 @@ let examplePlugin = {
 `onStart` 的执行时机是在每次 `build` 的时候，包括触发 `watch` 或者 `serve` 模式下的重新构建。
 `onEnd` 钩子中如果要拿到 `metafile`，必须将 `Esbuild` 的构建配置中 `metafile` 属性设为 `true`。
 
-### Rollup 插件机制
+## Rollup 插件机制
 
 `Rollup` 内部主要经历了 `Build` 和 `Output` 两大阶段：
 
@@ -571,9 +571,9 @@ let examplePlugin = {
 
 对于一次完整的构建过程而言， `Rollup` 会先进入到 `Build` 阶段，解析各模块的内容及依赖关系，然后进入 `Output` 阶段，完成打包及输出的过程。
 
-#### 拆解插件工作流
+### 拆解插件工作流
 
-##### 插件 Hook 类型
+#### 插件 Hook 类型
 
 插件的各种 `Hook` 可以根据上述这两个构建阶段分为两类: `Build Hook` 与 `Output Hook`。
 
@@ -602,7 +602,7 @@ let examplePlugin = {
 
 刚刚我们介绍了 Rollup 当中不同插件 Hook 的类型，实际上不同的类型是可以叠加的，Async/Sync 可以搭配后面三种类型中的任意一种，比如一个 Hook既可以是 Async 也可以是 First 类型，接着我们将来具体分析 Rollup 当中的插件工作流程，里面会涉及到具体的一些 Hook，大家可以具体地感受一下。
 
-##### Build 工作流
+#### Build 工作流
 
 ![rollup-build-work-flow](/engineering/construct/vite/rollup-build-work-flow.webp)
 
@@ -623,7 +623,7 @@ let examplePlugin = {
 
 7. 直到所有的 import 都解析完毕，Rollup 执行buildEnd钩子，Build 阶段结束。
 
-##### Output 阶段工作流
+#### Output 阶段工作流
 
 ![rollup-output-work-flow](/engineering/construct/vite/rollup-output-work-flow.webp)
 
@@ -651,11 +651,11 @@ let examplePlugin = {
 
 10. 当上述的bundle的close方法被调用时，会触发closeBundle钩子，到这里 Output 阶段正式结束。
 
-### HMR
+## HMR
 
 `HMR` 的全称叫做 `Hot Module Replacement`，即模块热替换或者模块热更新。`HMR` 的作用就是在页面模块更新的时候，直接把页面中发生变化的模块替换为新的模块，同时不会影响其它模块的正常运作。
 
-#### HMR API
+### HMR API
 
 `Vite` 作为一个完整的构建工具，本身实现了一套 `HMR` 系统，值得注意的是，这套 `HMR` 系统基于原生的 `ESM` 模块规范来实现，在文件发生改变时 `Vite` 会侦测到相应 `ES` 模块的变化，从而触发相应的 `API`，实现局部的更新。
 
@@ -678,7 +678,7 @@ interface ImportMeta {
 
 `import.meta` 对象为现代浏览器原生的一个内置对象，`Vite` 所做的事情就是在这个对象上的 `hot` 属性中定义了一套完整的属性和方法。因此，在 `Vite` 当中，你就可以通过`import.meta.hot`来访问关于 `HMR` 的这些属性和方法，比如`import.meta.hot.accept()`
 
-##### 模块更新时逻辑: hot.accept
+#### 模块更新时逻辑: hot.accept
 
 在 `import.meta.hot` 对象上有一个非常关键的方法 `accept` ，因为它决定了 `Vite` 进行热更新的边界，那么如何来理解这个 `accept` 的含义呢？
 
@@ -688,6 +688,607 @@ interface ImportMeta {
 - 接受**某个子模块**的更新
 - 接受**多个子模块**的更新
 
-###### 接受自身更新
+##### 接受自身更新
 
 当模块接受自身的更新时，则当前模块会被认为 `HMR` 的边界。也就是说，除了当前模块，其他的模块均未受到任何影响。
+
+![vite-hmr-self-accept](/engineering/construct/vite/vite-hmr-self-accept.webp)
+
+在需要更新的模块中加入以下代码，该模块即可自动更新
+
+```ts
+// 条件守卫
+if (import.meta.hot) {
+    import.meta.hot.accept((mod) => mod.[method]())
+}
+```
+
+##### 接受依赖模块的更新
+
+![vite-hmr-dep-accept](/engineering/construct/vite/vite-hmr-dep-accept.webp)
+
+```ts
+if (import.meta.hot) {
+    import.meta.hot.accept('./render.ts', (newModule) => {
+        newModule.[method]();
+    })
+}
+```
+
+##### 接受多个子模块的更新
+
+![vite-hmr-mtil-dep-accept](/engineering/construct/vite/vite-hmr-mtil-dep-accept.webp)
+
+```ts
+if (import.meta.hot) {
+    import.meta.hot.accept(['./render.ts', './state.ts'], (modules) => {
+        // 自定义更新
+        const [moduleA, moduleB] = modules;
+        if (moduleA) {
+        moduleA.[method]();
+        }
+        if (moduleB) {
+        moduleB.[method]();
+        }
+    })
+}
+```
+
+::: warning
+代码中如果使用了定时器可能会有问题，在模块更新的时候，定时器并没有被销毁
+:::
+
+```ts
+// vite accept 定义
+accept(deps?: any, callback?: any) {
+    if (typeof deps === 'function' || !deps) {
+        // self-accept: hot.accept(() => {})
+        acceptDeps([ownerPath], ([mod]) => deps && deps(mod))
+    } else if (typeof deps === 'string') {
+        // explicit deps
+        acceptDeps([deps], ([mod]) => callback && callback(mod))
+    } else if (Array.isArray(deps)) {
+        acceptDeps(deps, callback)
+    } else {
+        throw new Error(`invalid hot.accept() usage.`)
+    }
+},
+
+```
+
+#### 模块销毁时逻辑: hot.dispose
+
+代表在模块更新、旧模块需要销毁时需要做的一些事情
+
+```ts
+// state.ts 销毁定时器
+let timer: number | undefined;
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => {// [!code ++]
+    if (timer) { // [!code ++]
+      clearInterval(timer);// [!code ++]
+    } // [!code ++]
+  }) // [!code ++]
+}
+export function initState() {
+  let count = 0;
+  timer = setInterval(() => {
+    let countEle = document.getElementById('count');
+    countEle!.innerText =  ++count + '';
+  }, 1000);
+}
+```
+
+使用上述代码后，热更新后，状态将会初始化，不符合期望
+
+#### 共享数据: hot.data 属性
+
+用来在不同的模块实例间共享一些数据。使用上也非常简单
+
+```ts
+let timer: number | undefined;
+if (import.meta.hot) {
+    // 初始化 count
+    if (!import.meta.hot.data.count) { // [!code ++]
+        import.meta.hot.data.count = 0; // [!code ++]
+    } // [!code ++]
+    import.meta.hot.dispose(() => {
+        if (timer) {
+            clearInterval(timer);
+        }
+    })
+}
+export function initState() {
+    const getAndIncCount = () => { // [!code ++]
+        const data = import.meta.hot?.data || { // [!code ++]
+            count: 0 // [!code ++]
+        }; // [!code ++]
+        data.count = data.count + 1; // [!code ++]
+        return data.count; // [!code ++]
+    }; // [!code ++]
+    timer = setInterval(() => {
+        let countEle = document.getElementById('count');
+        countEle!.innerText =  getAndIncCount() + ''; // [!code ++]
+    }, 1000);
+}
+```
+
+#### 其他方法
+
+1. import.meta.hot.decline()
+
+    相当于表示此模块不可热更新，当模块更新时会强制进行页面刷新
+
+2. import.meta.hot.invalidate()
+
+    用来强制刷新页面。
+
+3. 自定义事件
+
+   你还可以通过 import.meta.hot.on 来监听 HMR 的自定义事件，内部有这么几个事件会自动触发:
+
+   - vite:beforeUpdate 当模块更新时触发；
+   - vite:beforeFullReload 当即将重新刷新页面时触发；
+   - vite:beforePrune 当不再需要的模块即将被剔除时触发；
+   - vite:error 当发生错误时（例如，语法错误）触发。
+
+## Code Splitting
+
+术语：
+
+- `bundle` 指的是整体的打包产物，包含 `JS` 和各种静态资源。
+- `chunk` 指的是打包后的 `JS` 文件，是 `bundle` 的子集。
+- `vendor` 是指第三方包的打包产物，是一种特殊的 `chunk`。
+  
+### 解决的问题
+
+在传统的单 `chunk` 打包模式下，当项目代码越来越庞大，最后会导致浏览器下载一个巨大的文件，从页面加载性能的角度来说，主要会导致两个问题:
+
+- 无法做到按需加载，即使是当前页面不需要的代码也会进行加载。
+- 线上缓存复用率极低，改动一行代码即可导致整个 `bundle` 产物缓存失效
+
+### Vite 默认拆包策略
+
+在生产环境下 Vite 完全利用 Rollup 进行构建，因此拆包也是基于 Rollup 来完成的，但 Rollup 本身是一个专注 JS 库打包的工具，对应用构建的能力还尚为欠缺，Vite 正好是补足了 Rollup 应用构建的能力，在拆包能力这一块的扩展就是很好的体现。
+
+```md
+.
+├── assets
+│   ├── Dynamic.3df51f7a.js    // Async Chunk
+│   ├── Dynamic.f2cbf023.css   // Async Chunk (CSS)
+│   ├── favicon.17e50649.svg   // 静态资源
+│   ├── index.1e236845.css     // Initial Chunk (CSS)
+│   ├── index.6773c114.js      // Initial Chunk
+│   └── vendor.ab4b9e1f.js     // 第三方包产物 Chunk
+└── index.html                 // 入口 HTML
+```
+
+一方面 `Vite` 实现了自动 `CSS` 代码分割的能力，即实现一个 `chunk` 对应一个 `css` 文件，比如上面产物中 `index.js` 对应一份 `index.css`，而按需加载的 `chunk Danamic.js` 也对应单独的一份 `Danamic.css` 文件，与 `JS` 文件的代码分割同理，这样做也能提升 `CSS` 文件的缓存复用率。
+
+而另一方面， `Vite` 基于 `Rollup` 的 `manualChunksAPI` 实现了应用拆包的策略:
+
+- 对于 `Initital Chunk` 而言，业务代码和第三方包代码分别打包为单独的 `chunk`，在上述的例子中分别对应`index.js` 和 `vendor.js`。需要说明的是，这是 `Vite 2.9` 版本之前的做法，而在 `Vite 2.9` 及以后的版本，默认打包策略更加简单粗暴，将所有的 `js` 代码全部打包到 `index.js` 中。
+
+- 对于 `Async Chunk` 而言 ，动态 `import` 的代码会被拆分成单独的 `chunk`，如上述的 `Dynacmic` 组件。
+
+### 自定义拆包策略
+
+针对更细粒度的拆包，Vite 的底层打包引擎 Rollup 提供了manualChunks，让我们能自定义拆包策略，它属于 Vite 配置的一部分。 manualChunks 主要有两种配置的形式，可以配置为一个对象或者一个函数。
+
+```ts
+// vite.config.ts
+export default {
+  build: {
+    rollupOptions: {
+      output: {
+        // manualChunks 配置
+        manualChunks: {},
+      },
+    }
+  },
+}
+```
+
+对象
+
+```ts
+// vite.config.ts
+export default {
+  build: {
+    rollupOptions: {
+      output: {
+        // manualChunks 配置
+        manualChunks: {
+          // 将 React 相关库打包成单独的 chunk 中
+          'react-vendor': ['react', 'react-dom'],
+          // 将 Lodash 库的代码单独打包
+          'lodash': ['lodash-es'],
+          // 将组件库的代码打包
+          'library': ['antd', '@arco-design/web-react'],
+        },
+      },
+    }
+  },
+}
+```
+
+函数
+
+```ts
+// Vite 部分源码
+function createMoveToVendorChunkFn(config: ResolvedConfig): GetManualChunk {
+  const cache = new Map<string, boolean>()
+  // 返回值为 manualChunks 的配置
+  return (id, { getModuleInfo }) => {
+    // Vite 默认的配置逻辑其实很简单
+    // 主要是为了把 Initial Chunk 中的第三方包代码单独打包成`vendor.[hash].js`
+    if (
+      id.includes('node_modules') &&
+      !isCSSRequest(id) &&
+      // 判断是否为 Initial Chunk
+      staticImportedByEntry(id, getModuleInfo, cache)
+    ) {
+      return 'vendor'
+    }
+  }
+}
+```
+
+### 拆包插件
+
+`Vite` 自定义拆包的终极解决方案——`vite-plugin-chunk-split`
+
+```ts
+// vite.config.ts
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
+
+export default {
+  chunkSplitPlugin({
+    // 指定拆包策略
+    customSplitting: {
+      // 1. 支持填包名。`react` 和 `react-dom` 会被打包到一个名为`render-vendor`的 chunk 里面(包括它们的依赖，如 object-assign)
+      'react-vendor': ['react', 'react-dom'],
+      // 2. 支持填正则表达式。src 中 components 和 utils 下的所有文件被会被打包为`component-util`的 chunk 中
+      'components-util': [/src\/components/, /src\/utils/]
+    }
+  })
+}
+```
+
+## 语法降级与Polyfill
+
+> 通过 `Vite` 构建我们完全可以兼容各种低版本浏览器，打包出既支持现代(`Modern`)浏览器又支持旧版(`Legacy`)浏览器的产物。
+
+旧版浏览器的语法兼容问题主要分两类: 语法降级问题和 `Polyfill` 缺失问题。前者比较好理解，比如某些浏览器不支持箭头函数，我们就需要将其转换为`function(){}`语法；而对后者来说，`Polyfill`本身可以翻译为垫片，也就是为浏览器提前注入一些 `API` 的实现代码，如 `Object.entries` 方法的实现，这样可以保证产物可以正常使用这些 `API`，防止报错。
+
+这两类问题本质上是通过前端的编译工具链(如`Babel`)及 `JS` 的基础 `Polyfill` 库(如`corejs`)来解决的，不会跟具体的构建工具所绑定。也就是说，对于这些本质的解决方案，在其它的构建工具(如 `Webpack`)能使用，在 `Vite` 当中也完全可以使用。
+
+### 底层工具链
+
+#### 工具概述
+
+解决上述提到的两类语法兼容问题，主要需要用到两方面的工具，分别包括:
+
+- **编译时工具**。代表工具有`@babel/preset-env`和`@babel/plugin-transform-runtime`。
+
+- **运行时基础库**。代表库包括`core-js`和`regenerator-runtime`。
+
+编译时工具的作用是在代码编译阶段进行语法降级及添加 `polyfill` 代码的引用语句，如:
+
+```ts
+import "core-js/modules/es6.set.js"
+```
+
+而运行时基础库是根据 ESMAScript官方语言规范提供各种Polyfill实现代码，主要包括core-js和regenerator-runtime两个基础库，不过在 babel 中也会有一些上层的封装，包括：
+
+- @babel/polyfill
+- @babel/runtime
+- @babel/runtime-corejs2
+- @babel/runtime-corejs3 看似各种运行时库眼花缭乱，其实都是core-js和regenerator-runtime不同版本的封装罢了(@babel/runtime是个特例，不包含 core-js 的 Polyfill)。
+
+##### 实际使用
+
+```shell
+pnpm i @babel/cli @babel/core @babel/preset-env
+```
+
+- @babel/cli: 为 babel 官方的脚手架工具，很适合我们练习用。
+- @babel/core: babel 核心编译库。
+- @babel/preset-env: babel 的预设工具集，基本为 babel 必装的库。
+
+babel配置文件 `.babelrc.json`
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // 指定兼容的浏览器版本
+        "targets": {
+          "ie": "11"
+        },
+        // 基础库 core-js 的版本，一般指定为最新的大版本
+        "corejs": 3,
+        // Polyfill 注入策略，后文详细介绍
+        "useBuiltIns": "usage",
+        // 不将 ES 模块语法转换为其他模块语法
+        "modules": false
+      }
+    ]
+  ]
+}
+```
+
+##### targets
+
+我们可以通过 targets 参数指定要兼容的浏览器版本，你既可以填如上配置所示的一个对象:
+
+> .babelrc.json
+
+```json
+{
+    "targets": {
+        "ie": "11"
+    }
+}
+```
+
+```json
+{
+  // ie 不低于 11 版本，全球超过 0.5% 使用，且还在维护更新的浏览器
+  "targets": "ie >= 11, > 0.5%, not dead"
+}
+```
+
+> package.json
+
+```json
+// package.json
+{
+  "browserslist": "ie >= 11"
+}
+```
+
+> .browserslistrc
+
+```text
+// .browserslistrc
+ie >= 11
+```
+
+##### useBuiltIns
+
+决定了添加 Polyfill 策略，默认是 false，即不添加任何的 Polyfill。你可以手动将useBuiltIns配置为entry或者usage，
+
+> entry
+>
+需要再入口文件入口添加代码
+
+```ts
+import 'core-js';
+```
+
+根据目标浏览器的配置为我们添加了大量的 Polyfill 代码，其中有很多我们 Polyfill 我们并没有用到
+
+> usage
+
+可以做到按需引入，而且不需要添加任何代码
+
+##### 小结
+
+@babel/preset-env 进行了目标浏览器语法的降级和 Polyfill 注入，同时用到了 core-js 和regenerator-runtime 两个核心的运行时库。但 @babel/preset-env 的方案也存在一定局限性:
+
+- 如果使用新特性，往往是通过基础库(如 core-js)往全局环境添加 Polyfill，如果是开发应用没有任何问题，如果是开发第三方工具库，则很可能会对全局空间造成污染。
+- 很多工具函数的实现代码(如上面示例中的 _defineProperty 方法)，会在许多文件中重现出现，造成文件体积冗余。
+
+#### 更优的 Polyfill 注入方案: transform-runtime
+
+为了解决@babel/preset-env的种种局限性
+
+> 需要提前说明的是，transform-runtime 方案可以作为 @babel/preset-env 中 useBuiltIns 配置的替代品，也就是说，一旦使用 transform-runtime 方案，你应该把 useBuiltIns 属性设为 false。
+
+两个必要依赖
+
+- @babel/plugin-transform-runtime 编译时工具，用来转换语法和添加 Polyfill
+- @babel/runtime-corejs3 运行时基础库，封装了core-js、regenerator-runtime和各种语法转换用到的工具函数
+
+> core-js 有三种产物，分别是core-js、core-js-pure和core-js-bundle。第一种是全局 Polyfill 的做法，@babel/preset-env 就是用的这种产物；第二种不会把 Polyfill 注入到全局环境，可以按需引入；第三种是打包好的版本，包含所有的 Polyfill，不太常用。@babel/runtime-corejs3 使用的是第二种产物。
+
+```json
+{
+  "plugins": [ 
+    // 添加 transform-runtime 插件
+    [ // [!code ++]
+      "@babel/plugin-transform-runtime", // [!code ++]
+      {// [!code ++]
+        "corejs": 3// [!code ++]
+      }// [!code ++]
+    ]// [!code ++]
+  ],// [!code ++]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "ie": "11"
+        },
+        "corejs": 3,
+        // 关闭 @babel/preset-env 默认的 Polyfill 注入
+        "useBuiltIns": "usage", // [!code --]
+        "useBuiltIns": false, // [!code ++]
+        "modules": false
+      }
+    ]
+  ]
+}
+```
+
+### Vite 语法降级与 Polyfill 注入
+
+`Vite` 官方已经为我们封装好了一个开箱即用的方案: `@vitejs/plugin-legacy`，我们可以基于它来解决项目语法的浏览器兼容问题。这个插件内部同样使用 `@babel/preset-env` 以及 `core-js` 等一系列基础库来进行语法降级和 `Polyfill` 注入。
+
+```ts
+// vite.config.ts
+import legacy from '@vitejs/plugin-legacy';
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    // 省略其它插件
+    legacy({
+      // 设置目标浏览器，browserslist 配置语法
+      targets: ['ie >= 11'],
+    })
+  ]
+})
+```
+
+```md
+.
+├── assets
+│   ├── index-legacy.[hash].js
+│   ├── vendor-legacy.[hash].js
+│   ├── polyfills-legacy.[hash].js
+│   ├── favicon.[hash].svg
+│   ├── index.[hash].css
+│   ├── index.[hash].js
+│   └── vendor.[hash].js
+└── index.html
+```
+
+相比一般的打包过程，多出了index-legacy.js、vendor-legacy.js以及polyfills-legacy.js三份产物文件。让我们继续观察一下index.html的产物内容:
+
+```html{9,16,17,18}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.[hash].svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <!-- 1. Modern 模式产物 -->
+    <script type="module" crossorigin src="/assets/index.[hash].js"></script>
+    <link rel="modulepreload" href="/assets/vendor.[hash].js">
+    <link rel="stylesheet" href="/assets/index.[hash].css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- 2. Legacy 模式产物 -->
+    <script nomodule>兼容 iOS nomodule 特性的 polyfill，省略具体代码</script>
+    <script nomodule id="vite-legacy-polyfill" src="/assets/polyfills-legacy.[hash].js"></script>
+    <script nomodule id="vite-legacy-entry" data-src="/assets/index-legacy.[hash].js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  </body>
+</html>
+```
+
+通过官方的legacy插件， Vite 会分别打包出Modern模式和Legacy模式的产物，然后将两种产物插入同一个 HTML 里面，Modern产物被放到 type="module"的 script 标签中，而Legacy产物则被放到带有 nomodule 的 script 标签中。浏览器的加载策略
+
+- 现代浏览器 加载 type="module" ，忽略 nomodule
+- 低版本浏览器 加载 nomodule ，忽略 type="module"
+
+#### 插件执行原理
+
+![plugin-legacy](/engineering/construct/vite/plugin-legacy.webp)
+
+首先是在 `configResolved` 钩子中调整了 `output` 属性，这么做的目的是让 `Vite` 底层使用的打包引擎 `Rollup` 能另外打包出一份 `Legacy` 模式的产物，实现代码如下:
+
+```ts
+const createLegacyOutput = (options = {}) => {
+  return {
+    ...options,
+    // system 格式产物
+    format: 'system',
+    // 转换效果: index.[hash].js -> index-legacy.[hash].js
+    entryFileNames: getLegacyOutputFileName(options.entryFileNames),
+    chunkFileNames: getLegacyOutputFileName(options.chunkFileNames)
+  }
+}
+
+const { rollupOptions } = config.build
+const { output } = rollupOptions
+if (Array.isArray(output)) {
+  rollupOptions.output = [...output.map(createLegacyOutput), ...output]
+} else {
+  rollupOptions.output = [createLegacyOutput(output), output || {}]
+}
+```
+
+接着，在 `renderChunk` 阶段，插件会对 `Legacy` 模式产物进行语法转译和 `Polyfill` 收集，值得注意的是，这里并不会真正注入 `Polyfill`，而仅仅只是收集 `Polyfill`，:
+
+```ts
+renderChunk(raw, chunk, opts) {
+    // 1. 使用 babel + @babel/preset-env 进行语法转换与 Polyfill 注入
+    // 2. 由于此时已经打包后的 Chunk 已经生成
+    //   这里需要去掉 babel 注入的 import 语句，并记录所需的 Polyfill
+    // 3. 最后的 Polyfill 代码将会在 generateBundle 阶段生成
+}
+```
+
+由于场景是应用打包，这里直接使用 @babel/preset-env 的useBuiltIns: 'usage'来进行全局 Polyfill 的收集是比较标准的做法。
+
+回到 Vite 构建的主流程中，接下来会进入generateChunk钩子阶段，现在 Vite 会对之前收集到的Polyfill进行统一的打包，实现也比较精妙，主要逻辑集中在buildPolyfillChunk函数中:
+
+```ts
+// 打包 Polyfill 代码
+async function buildPolyfillChunk(
+  name,
+  imports
+  bundle,
+  facadeToChunkMap,
+  buildOptions,
+  externalSystemJS
+) {
+  let { minify, assetsDir } = buildOptions
+  minify = minify ? 'terser' : false
+  // 调用 Vite 的 build API 进行打包
+  const res = await build({
+    // 根路径设置为插件所在目录
+    // 由于插件的依赖包含`core-js`、`regenerator-runtime`这些运行时基础库
+    // 因此这里 Vite 可以正常解析到基础 Polyfill 库的路径
+    root: __dirname,
+    write: false,
+    // 这里的插件实现了一个虚拟模块
+    // Vite 对于 polyfillId 会返回所有 Polyfill 的引入语句
+    plugins: [polyfillsPlugin(imports, externalSystemJS)],
+    build: {
+      rollupOptions: {
+        // 访问 polyfillId
+        input: {
+          // name 暂可视作`polyfills-legacy`
+          // pofyfillId 为一个虚拟模块，经过插件处理后会拿到所有 Polyfill 的引入语句
+          [name]: polyfillId
+        },
+      }
+    }
+  });
+  // 拿到 polyfill 产物 chunk
+  const _polyfillChunk = Array.isArray(res) ? res[0] : res
+  if (!('output' in _polyfillChunk)) return
+  const polyfillChunk = _polyfillChunk.output[0]
+  // 后续做两件事情:
+  // 1. 记录 polyfill chunk 的文件名，方便后续插入到 Modern 模式产物的 HTML 中；
+  // 2. 在 bundle 对象上手动添加 polyfill 的 chunk，保证产物写到磁盘中
+}
+```
+
+因此，你可以理解为这个函数的作用即通过 vite build 对renderChunk中收集到 polyfill 代码进行打包，生成一个单独的 chunk: legacy-polyfill
+
+> 需要注意的是，polyfill chunk 中除了包含一些 core-js 和 regenerator-runtime 的相关代码，也包含了 SystemJS 的实现代码，你可以将其理解为 ESM 的加载器，实现了在旧版浏览器下的模块加载能力。
+
+```ts
+{
+  transformIndexHtml(html) {
+    // 1. 插入 Polyfill chunk 对应的 <script nomodule> 标签
+    // 2. 插入 Legacy 产物入口文件对应的 <script nomodule> 标签
+  }
+}
+```
+
+插件相关问题
+
+- 当插件参数中开启了modernPolyfills选项时，Vite 也会自动对 Modern 模式的产物进行 Polyfill 收集，并单独打包成polyfills-modern.js的 chunk，原理和 Legacy 模式下处理 Polyfill 一样。
+
+- Sarari 10.1 版本不支持 nomodule，为此需要单独引入一些[补丁代码](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc/)。
+
+- 部分低版本 Edge 浏览器虽然支持 type="module"，但不支持动态 import，为此也需要插入一些[补丁代码](https://github.com/vitejs/vite/pull/3885/)，针对这种情况下降级使用 Legacy 模式的产物。
