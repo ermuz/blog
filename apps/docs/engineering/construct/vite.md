@@ -288,7 +288,7 @@ const esbuildPatchPlugin = {
 
 #### 单文件编译——作为 TS 和 JSX 编译工具
 
-在 `TS(X)/JS(X)` 单文件编译上面，`Vite` 以插件的形式使用 `Esbuild` 进行语法转译，也就是将 `Esbuild` 作为 `Transformer` 来用。这部分能力用来替换原先 `Babel` 或者 `TSC` 的功能，因为无论是 `Babel` 还是 `` 都有性能问题，大家对这两个工具普遍的认知都是: **慢，太慢了**。
+在 `TS(X)/JS(X)` 单文件编译上面，`Vite` 以插件的形式使用 `Esbuild` 进行语法转译，也就是将 `Esbuild` 作为 `Transformer` 来用。这部分能力用来替换原先 `Babel` 或者 `TSC` 的功能，因为无论是 `Babel` 还是 `TSC` 都有性能问题，大家对这两个工具普遍的认知都是: **慢，太慢了**。
 
 当 `Vite` 使用 `Esbuild` 做单文件编译之后，提升可以说相当大了，我们以一个巨大的 `50MB+` 的纯代码文件为例，来对比 `Esbuild、Babel、TSC` 包括 `SWC` 的编译性能:
 
@@ -1292,3 +1292,238 @@ async function buildPolyfillChunk(
 - Sarari 10.1 版本不支持 nomodule，为此需要单独引入一些[补丁代码](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc/)。
 
 - 部分低版本 Edge 浏览器虽然支持 type="module"，但不支持动态 import，为此也需要插入一些[补丁代码](https://github.com/vitejs/vite/pull/3885/)，针对这种情况下降级使用 Legacy 模式的产物。
+
+## 性能优化
+
+对于项目的加载性能优化而言，常见的优化手段可以分为下面三类:
+
+- **网络优化** 包括 `HTTP2`、`DNS` 预解析、`Preload`、`Prefetch`等手段。
+- **资源优化** 包括构建产物分析、资源压缩、产物拆包、按需加载等优化方式。
+- **预渲染优化** 本文主要介绍服务端渲染(SSR)和静态站点生成(SSG)两种手段。
+
+### 网络优化
+
+#### HTTP2
+
+传统的 `HTTP 1.1` 存在队头阻塞的问题，同一个 `TCP` 管道中同一时刻只能处理一个 `HTTP` 请求，也就是说如果当前请求没有处理完，其它的请求都处于阻塞状态，另外浏览器对于同一域名下的并发请求数量都有限制，比如 `Chrome` 中只允许 `6` 个请求并发（这个数量不允许用户配置），也就是说请求数量超过 `6` 个时，多出来的请求只能排队、等待发送。
+
+因此，在 `HTTP 1.1` 协议中，队头阻塞和请求排队问题很容易成为网络层的性能瓶颈。而 `HTTP 2` 的诞生就是为了解决这些问题，它主要实现了如下的能力：
+
+多路复用。将数据分为多个二进制帧，多个请求和响应的数据帧在同一个 `TCP` 通道进行传输，解决了之前的队头阻塞问题。而与此同时，在 `HTTP2` 协议下，浏览器不再有同域名的并发请求数量限制，因此请求排队问题也得到了解决。
+`Server Push`，即服务端推送能力。可以让某些资源能够提前到达浏览器，比如对于一个 `html` 的请求，通过 `HTTP 2` 我们可以同时将相应的 `js` 和 `css` 资源推送到浏览器，省去了后续请求的开销。
+
+在 `Vite` 中，我们可以通过 `vite-plugin-mkcert` 在本地 `Dev Server` 上开启 `HTTP2`:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import mkcert from "vite-plugin-mkcert";
+
+export default defineConfig({
+  plugins: [react(), mkcert()],
+  server: {
+    // https 选项需要开启
+    https: true,
+  },
+});
+```
+
+插件的原理也比较简单，由于 HTTP2 依赖 TLS 握手，插件会帮你自动生成 TLS 证书，然后支持通过 HTTPS 的方式启动，而 Vite 会自动把 HTTPS 服务升级为 HTTP2。
+
+#### DNS 预解析
+
+浏览器在向跨域的服务器发送请求时，首先会进行 `DNS` 解析，将服务器域名解析为对应的 IP 地址。我们通过 `dns-prefetch` 技术将这一过程提前，降低 `DNS` 解析的延迟时间，具体使用方式如下:
+
+```html
+<!-- href 为需要预解析的域名 -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+```
+
+一般情况下 dns-prefetch 会与 preconnect 搭配使用，前者用来解析 DNS，而后者用来会建立与服务器的连接，建立 TCP 通道及进行 TLS 握手，进一步降低请求延迟。使用方式如下所示:
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+```
+
+#### Preload/Prefetch
+
+##### Preload
+
+对于一些比较重要的资源，我们可以通过 Preload 方式进行预加载，即在资源使用之前就进行加载，而不是在用到的时候才进行加载，这样可以使资源更早地到达浏览器。其中我们一般会声明 href 和 as 属性，分别表示资源地址和资源类型。
+
+```html
+<link rel="preload" href="style.css" as="style">
+<link rel="preload" href="main.js" as="script">
+```
+
+与普通 script 标签不同的是，对于原生 ESM 模块，浏览器提供了modulepreload来进行预加载:
+
+```html
+<link rel="modulepreload" href="/src/app.js" />
+```
+
+仅有 70% 左右的浏览器支持这个特性，不过在 Vite 中我们可以通过配置一键开启 modulepreload 的 Polyfill，从而在使所有支持原生 ESM 的浏览器(占比 90% 以上)都能使用该特性，配置方式如下:
+
+```ts
+// vite.config.ts
+export default {
+  build: {
+    polyfillModulePreload: true
+  }
+}
+```
+
+##### Prefetch
+
+Prefetch 作用是在浏览器空闲的时候去预加载其它页面的资源，比如对于 A 页面中插入了这样的 link 标签:
+
+```html
+<link rel="prefetch" href="https://B.com/index.js" as="script">
+```
+
+这样浏览器会在 A 页面加载完毕之后去加载B这个域名下的资源，如果用户跳转到了B页面中，浏览器会直接使用预加载好的资源，从而提升 B 页面的加载速度。
+
+### 资源优化
+
+#### 产物分析报告
+
+使用 rollup-plugin-visualizer 插件可视化地感知到产物的体积情况
+
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    visualizer({
+      // 打包完成后自动打开浏览器，显示产物体积报告
+      open: true,
+    }),
+  ],
+});
+```
+
+#### 资源压缩
+
+在生产环境中，为了极致的代码体积，我们一般会通过构建工具来对产物进行压缩。具体来说，有这样几类资源可以被压缩处理: JavaScript 代码、CSS 代码和图片文件。
+
+##### JavaScript 压缩
+
+在 Vite 生产环境构建的过程中，JavaScript 产物代码会自动进行压缩，相关的配置参数如下:
+
+```ts
+// vite.config.ts
+export default {
+  build: {
+    // 类型: boolean | 'esbuild' | 'terser'
+    // 默认为 `esbuild`
+    minify: 'esbuild',
+    // 产物目标环境
+    target: 'modules',
+    // 如果 minify 为 terser，可以通过下面的参数配置具体行为
+    // https://terser.org/docs/api-reference#minify-options
+    terserOptions: {}
+  }
+}
+```
+
+值得注意的是target参数，也就是压缩产物的目标环境。Vite 默认的参数是modules，即如下的 browserlist:
+
+```text
+['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1']
+```
+
+其实，对于 JS 代码压缩的理解仅仅停留在去除空行、混淆变量名的层面是不够的，为了达到极致的压缩效果，压缩器一般会根据浏览器的目标，会对代码进行语法层面的转换，比如下面这个例子:
+
+```ts
+// 业务代码中
+info == null ? undefined : info.name
+```
+
+如果你将 target 配置为esnext，也就是最新的 JS 语法，会发现压缩后的代码变成了下面这样:
+
+```ts
+info?.name
+```
+
+这就是压缩工具在背后所做的事情，将某些语句识别之后转换成更高级的语法，从而达到更优的代码体积。
+
+因此，设置合适的 target 就显得特别重要了，一旦目标环境的设置不能覆盖所有的用户群体，那么极有可能在某些低端浏览器中出现语法不兼容问题，从而发生线上事故。
+
+##### CSS 压缩
+
+```ts
+// vite.config.ts
+export default {
+  build: {
+    // 设置 CSS 的目标环境
+    cssTarget: ''
+  }
+}
+```
+
+一般不需要配置，会自动压缩，在需要兼容安卓端微信的 webview 时，我们需要将 build.cssTarget 设置为 chrome61，以防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制符号的形式，出现样式问题。
+
+##### 图片压缩
+
+图片资源是一般是产物体积的大头，如果能有效地压缩图片体积，那么对项目体积来说会得到不小的优化。而在 Vite 中我们一般使用 `vite-plugin-imagemin` 来进行图片压缩
+
+##### 产物拆包
+
+一般来说，如果不对产物进行代码分割(或者拆包)，全部打包到一个 chunk 中，会产生如下的问题:
+
+首屏加载的代码体积过大，即使是当前页面不需要的代码也会进行加载。
+线上缓存复用率极低，改动一行代码即可导致整个 bundle 产物缓存失效。
+而 Vite 中内置如下的代码拆包能力:
+
+CSS 代码分割，即实现一个 chunk 对应一个 css 文件。
+默认有一套拆包策略，将应用的代码和第三方库的代码分别打包成两份产物，并对于动态 import 的模块单独打包成一个 chunk。
+
+当然，我们也可以通过manualChunks参数进行自定义配置：
+
+```ts
+// vite.config.ts
+{
+  build {
+    rollupOptions: {
+      output: {
+        // 1. 对象配置
+        manualChunks: {
+          // 将 React 相关库打包成单独的 chunk 中
+          'react-vendor': ['react', 'react-dom'],
+          // 将 Lodash 库的代码单独打包
+          'lodash': ['lodash-es'],
+          // 将组件库的代码打包
+          'library': ['antd'],
+        },
+        // 2. 函数配置
+          if (id.includes('antd') || id.includes('@arco-design/web-react')) {
+            return 'library';
+          }
+          if (id.includes('lodash')) {
+            return 'lodash';
+          }
+          if (id.includes('react')) {
+            return 'react';
+          }
+      },
+    }
+  },
+}
+```
+
+##### 按需加载
+
+在一个完整的 Web 应用中，对于某些模块当前页面可能并不需要，如果浏览器在加载当前页面的同时也需要加载这些不必要的模块，那么可能会带来严重的性能问题。一个比较好的方式是对路由组件进行动态引入，
+
+#### 预渲染优化
+
+预渲染是当今比较主流的优化手段，主要包括服务端渲染(SSR)和静态站点生成(SSG)这两种技术。
+
+在 SSR 的场景下，服务端生成好完整的 HTML 内容，直接返回给浏览器，浏览器能够根据 HTML 渲染出完整的首屏内容，而不需要依赖 JS 的加载，从而降低浏览器的渲染压力；而另一方面，由于服务端的网络环境更优，可以更快地获取到页面所需的数据，也能节省浏览器请求数据的时间。
+
+而 SSG 可以在构建阶段生成完整的 HTML 内容，它与 SSR 最大的不同在于 HTML 的生成在构建阶段完成，而不是在服务器的运行时。SSG 同样可以给浏览器完整的 HTML 内容，不依赖于 JS 的加载，可以有效提高页面加载性能。不过相比 SSR，SSG 的内容往往动态性不够，适合比较静态的站点，比如文档、博客等场景。
