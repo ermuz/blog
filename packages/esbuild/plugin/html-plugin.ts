@@ -1,6 +1,6 @@
 import type { Plugin, PluginBuild, BuildResult } from 'esbuild';
-import { join } from 'path'
-import fs from 'fs'
+import { join } from 'path';
+import fs from 'fs';
 import { createScript, createLink, generateHTML } from './utils';
 
 export default (): Plugin => ({
@@ -14,7 +14,7 @@ export default (): Plugin => ({
             // 1. 拿到 metafile 后获取所有的 js 和 css 产物路径
             const scripts: Array<string> = [];
             const links: Array<string> = [];
-            console.log('metafile', metafile)
+            console.log('metafile', metafile);
             if (metafile) {
                 const { outputs } = metafile;
                 const assets = Object.keys(outputs);
@@ -36,4 +36,4 @@ export default (): Plugin => ({
             });
         });
     }
-})
+});

@@ -192,7 +192,11 @@ const menu = [
                     {
                         text: 'EsBuild',
                         link: '/engineering/construct/esbuild',
-                    }
+                    },
+                    {
+                        text: 'Babel',
+                        link: '/engineering/construct/babel',
+                    },
                 ]
             },
             {
@@ -262,7 +266,13 @@ const menu = [
                 items: [
                     {
                         text: 'Vue',
-                        link: '/framework-and-lib/frameworks/vue'
+                        link: '/framework-and-lib/frameworks/vue',
+                        items: [
+                            {
+                                text: '技术内幕',
+                                link: '/framework-and-lib/frameworks/vue/technology-insider'
+                            }
+                        ]
                     },
                     {
                         text: 'React',
@@ -483,7 +493,6 @@ const sidebar = () => {
     return side
 }
 
-console.log(__dirname)
 
 const root = resolve(__dirname, '../');
 

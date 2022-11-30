@@ -12,13 +12,13 @@ export default (): Plugin => ({
         build.onResolve({ filter: /^https?:\/\// }, (args: OnResolveArgs) => ({
             path: args.path,
             namespace: 'http-url'
-        }))
+        }));
 
         // 处理外置http请求的前置依赖
         build.onResolve({ filter: /.*/, namespace: 'http-url' }, (args: OnResolveArgs) => ({
             path: new URL(args.path, args.importer).toString(),
             namespace: 'http-url'
-        }))
+        }));
 
         // 路径解析
         build.onLoad({ filter: /.*/, namespace: 'http-url' }, async (args: OnLoadArgs) => {
@@ -52,7 +52,7 @@ export default (): Plugin => ({
 
             return {
                 contents
-            }
-        })
+            };
+        });
     }
-})
+});

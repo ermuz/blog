@@ -1,0 +1,18 @@
+{
+    "name": "@ermuz/babel",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "ts-node ./scripts/build.ts"
+    },
+    "devDependencies": {
+        "@babel/code-frame": "^7.18.6",
+        "@babel/core": "^7.20.5",
+        "@babel/generator": "^7.20.5",
+        "@babel/parser": "^7.20.5",
+        "@babel/template": "^7.18.10",
+        "@babel/traverse": "^7.20.5",
+        "@babel/types": "^7.20.5",
+        "ts-node": "^10.9.1"
+    }
+}
