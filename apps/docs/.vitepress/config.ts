@@ -449,8 +449,12 @@ const menu = [
                                 link: '/soft-skill/photography/tutorial/tailuo'
                             },
                             {
-                                text: '花间摄影',
-                                link: '/soft-skill/photography/tutorial/huajian'
+                                text: '花间摄影1',
+                                link: '/soft-skill/photography/tutorial/huajian1'
+                            },
+                            {
+                                text: '花间摄影7',
+                                link: '/soft-skill/photography/tutorial/huajian7'
                             }
                         ]
                     }
