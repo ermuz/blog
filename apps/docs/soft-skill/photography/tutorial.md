@@ -1,5 +1,5 @@
 # 教程
 
-- [泰罗](./tutorial/tailuo.md)
-- [花间1](./tutorial/huanjian1.md)
-- [花间7](./tutorial/huanjian7.md)
+- <a href="./tutorial/huanjian7" target="_blank" rel="noreferrer">泰罗</a>
+- <a href="./tutorial/huanjian7" target="_blank" rel="noreferrer">花间1</a>
+- <a href="./tutorial/huanjian7" target="_blank" rel="noreferrer">花间7</a>
