@@ -2136,3 +2136,177 @@ babel.transformFileSync("example.js", {
 想知道最终使用了啥插件，那就可以把 debug 设为 true，这样在控制台打印这些数据。
 
 我们知道了 preset-env 能够根据目标环境引入对应的插件，最终会注入 helper 到代码里，但这样还是有问题的：
+
+### helper --> runtime
+
+preset-env 会在使用到新特性的地方注入 helper 到 AST 中，并且会引入用到的特性的 polyfill （corejs + regenerator），这样会导致两个问题：
+
+- 重复注入 helper 的实现，导致代码冗余
+- polyfill 污染全局环境
+
+解决这两个问题的思路就是抽离出来，然后作为模块引入，这样多个模块复用同一份代码就不会冗余了，而且 polyfill 是模块化引入的也不会污染全局环境。
+
+babel7 通过 preset-env 实现了按需编译和 polyfill，还可以用 plugin-transform-runtime 来变成从 @babel/runtime 包引入的方式。
+
+但这也不是完美的，还有一些问题：
+
+#### babel7 的问题
+
+babel 中插件的应用顺序是：先 plugin 再 preset，plugin 从左到右，preset 从右到左，这样 plugin-transform-runtime 是在 preset-env 前面的。等 @babel/plugin-transform-runtime 转完了之后，再交给 preset-env 这时候已经做了无用的转换了。而 @babel/plugin-transform-runtime 并不支持 targets 的配置，就会做一些多余的转换和 polyfill。
+
+这个问题在即将到来的 babel8 中得到了解决。
+
+#### babel8
+
+babel8 提供了 一系列 babel polyfill 的包 ，解决了 babel7 的 @babel/plugin-transform-runtime 的遗留问题，可以通过 targets 来按需精准引入 polyfill。
+
+babel8 支持配置一个 polyfill provider，也就是说你可以指定 corejs2、corejs3、es-shims 等 polyfill，还可以自定义 polyfil。
+
+有了 polyfill 源之后，使用 polyfill 的方式也把之前 transform-runtime 做的事情内置了，从之前的 useBuiltIns: entry、 useBuiltIns: usage 的两种，变成了 3 种：
+
+- entry-global: 这个和之前的 useBuiltIns: entry 对标，就是全局引入 polyfill
+- usage-entry: 这个和 useBuiltIns: usage 对标，就是具体模块引入用到的 polyfill。
+- usage-pure：这个就是之前需要 transform-runtime 插件做的事情，使用不污染全局变量的 pure 的方式引入具体模块用到的 polyfill.
+
+其实这三种方式 babel 7 也支持，但是 babel8 不再需要 transform-runtime 插件了，而且还支持了 polyfill provider 的配置。
+
+babel 的功能都是通过插件完成的，但是直接指定插件太过麻烦，所以设计出了 preset，我们学习 babel 的内置功能基本等价于学习 preset 的使用。主要是 preset-env、preset-typescript 这些。
+
+但是一些 proposal 的插件需要单独引入，并且 @babel/plugin-transform-runtime也要单独引入。
+
+## 实战案例：自动埋点
+
+### 思路分析
+
+```js
+import aa from 'aa';
+import * as bb from 'bb';
+import {cc} from 'cc';
+import 'dd';
+
+function a () {
+    console.log('aaa');
+}
+
+class B {
+    bb() {
+        return 'bbb';
+    }
+}
+
+const c = () => 'ccc';
+
+const d = function () {
+    console.log('ddd');
+}
+
+```
+
+```js
+import _tracker2 from "tracker";
+import aa from 'aa';
+import * as bb from 'bb';
+import { cc } from 'cc';
+import 'dd';
+
+function a() {
+  _tracker2();
+
+  console.log('aaa');
+}
+
+class B {
+  bb() {
+    _tracker2();
+
+    return 'bbb';
+  }
+
+}
+
+const c = () => {
+  _tracker2();
+
+  return 'ccc';
+};
+
+const d = function () {
+  _tracker2();
+
+  console.log('ddd');
+};
+
+```
+
+有两方面的事情要做：
+
+- 引入 tracker 模块。如果已经引入过就不引入，没有的话就引入，并且生成个唯一 id 作为标识符
+- 对所有函数在函数体开始插入 tracker 的代码
+
+### 代码实现
+
+#### 模块引入
+
+引入模块这种功能显然很多插件都需要，这种插件之间的公共函数会放在 helper，这里我们使用 @babel/helper-module-imports。
+
+```js
+const importModule = require('@babel/helper-module-imports');
+
+// 省略一些代码
+importModule.addDefault(path, 'tracker',{
+    nameHint: path.scope.generateUid('tracker')
+})
+```
+
+首先要判断是否被引入过：在 Program 根结点里通过 path.traverse 来遍历 ImportDeclaration，如果引入了 tracker 模块，就记录 id 到 state，并用 path.stop 来终止后续遍历；没有就引入 tracker 模块，用 generateUid 生成唯一 id，然后放到 state。
+
+当然 default import 和 namespace import 取 id 的方式不一样，需要分别处理下。
+
+我们把 tracker 模块名作为参数传入，通过 options.trackerPath 来取。
+
+```js
+Program: {
+    enter (path, state) {
+        path.traverse({
+            ImportDeclaration (curPath) {
+                const requirePath = curPath.get('source').node.value;
+                if (requirePath === options.trackerPath) {// 如果已经引入了
+                    const specifierPath = curPath.get('specifiers.0');
+                    if (specifierPath.isImportSpecifier()) {
+                        state.trackerImportId = specifierPath.toString();
+                    } else if(specifierPath.isImportNamespaceSpecifier()) {
+                        state.trackerImportId = specifierPath.get('local').toString();// tracker 模块的 id
+                    }
+                    path.stop();// 找到了就终止遍历
+                }
+            }
+        });
+        if (!state.trackerImportId) {
+            state.trackerImportId  = importModule.addDefault(path, 'tracker',{
+                nameHint: path.scope.generateUid('tracker')
+            }).name; // tracker 模块的 id
+            state.trackerAST = api.template.statement(`${state.trackerImportId}()`)();// 埋点代码的 AST
+        }
+    }
+}
+```
+
+我们在记录 tracker 模块的 id 的时候，也生成调用 tracker 模块的 AST，使用 template.statement.
+
+#### 函数插桩
+
+函数插桩要找到对应的函数，这里要处理的有：ClassMethod、ArrowFunctionExpression、FunctionExpression、FunctionDeclaration 这些节点。
+
+当然有的函数没有函数体，这种要包装一下，然后修改下 return 值。如果有函数体，就直接在开始插入就行了。
+
+```js
+'ClassMethod|ArrowFunctionExpression|FunctionExpression|FunctionDeclaration'(path, state) {
+    const bodyPath = path.get('body');
+    if (bodyPath.isBlockStatement()) { // 有函数体就在开始插入埋点代码
+        bodyPath.node.body.unshift(state.trackerAST);
+    } else { // 没有函数体要包裹一下，处理下返回值
+        const ast = api.template.statement(`{${state.trackerImportId}();return PREV_BODY;}`)({PREV_BODY: bodyPath.node});
+        bodyPath.replaceWith(ast);
+    }
+}
+```

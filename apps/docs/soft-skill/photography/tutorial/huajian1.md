@@ -228,7 +228,7 @@ UV镜 不好的话，可能还会副作用
 
 1. 遮光罩
     ![jiaoduan&guangying-3](/soft-skill/photography/tutorial/huajian/jiaoduan&guangying-3.png)
-3. 改变构图
+2. 改变构图
     ![jiaoduan&guangying-2](/soft-skill/photography/tutorial/huajian/jiaoduan&guangying-2.png)
 
 #### 总结
