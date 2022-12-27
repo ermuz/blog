@@ -633,4 +633,330 @@ Macro|微距拍摄，该镜头可用于近距离的微距拍摄
 
 构图是语法，帮你表达的更准确清晰
 
-真正动人的句子，不是因为语法精准，而是因为情感充沛
+## 色彩基础知识
+
+### 色彩基础知识
+
+#### 光学模式
+
+光学三原色：红（R）绿（G）蓝（B）
+
+RGB色彩模式
+
+RGB是指光学三原色：R(Red)、G（Green）、B（Blue）
+
+RGB的值是指其亮度，用整数从0、1、2... 直到255来表示
+
+#### 印刷模式
+
+印刷三原色 清品黄CMY:减色原理
+
+#### 色相环
+
+![sexianghuan](/soft-skill/photography/tutorial/huajian7/sexianghuan.jpg)
+
+- 互补色
+
+    色相环中相隔180°的颜色，被称为互补色。补色并列时，会引起强烈对比的色觉，会感到红的更红、绿的更绿
+
+- 对比色
+
+    色相环中相隔120°至150°的任何三种颜色
+
+- 邻近色
+
+    色相环中相差15-60°的颜色，和谐中存在一定的变化
+
+- 同类色
+
+    色相环中相差15以内的颜色。同一色相中不同倾向的系列颜色成为同类色。如黄色中可分为柠檬黄、中黄、橘黄、土黄等，都称为同类色
+
+#### 色彩的三要素
+
+#### 色相
+
+是色与色之间的差别所在，是区别色彩种类的名称。在原色与间色之间可区分出许多不同的色相，人的眼睛可以辨别出几万甚至几十万种颜色。
+
+#### 饱和度
+
+是指色彩的纯净程度。纯度的变化可通过三原色互混产生，也可以通过加白、加黑、加灰产生，还可以补色相混产生。凡有纯度的色彩必有相应的色相感。色相感越明确、纯净，其色彩纯度越纯，反之，则越灰。纯度较低，色彩相对也较柔和，适合于生活妆；纯度很高的色彩应慎用。
+
+#### 明度
+
+是指色彩的明暗程度，是表现色彩层次感的基础。
+
+在无彩色系中，白色明度最高，黑色明度最低，在黑白之间存在一系列灰色，靠近白的部分称为明灰色，靠近黑的部分称为暗灰色。任何一个有彩色，当它掺入白色时，明度提高，当它掺入黑色时，明度降低。同时其纯度也相应降低。
+
+### 色彩管理，让你的照片不偏色
+
+相机-显示设备-显卡-操作系统-图片编辑软件-打印设备
+
+色彩空间又称为“色域”
+
+色彩学中，人们建立了多种色彩模型，以一维、二维、三位设置四维空间坐标来表示某一色彩，这种坐标系统所能定义的色彩范围即色彩空间。我们经常用到的色彩空间主要有RGB、CMYK、Lab等
+
+![secaikongjian](/soft-skill/photography/tutorial/huajian7/secaikongjian.jpg)
+
+#### 色差就出现在不同色彩空间的转换中
+
+![secha](/soft-skill/photography/tutorial/huajian/secha.png)
+
+#### sRGB 和 Adobe RGB 怎么选
+
+如果要输出打印照片，请选择sRGB的大容量RAW格式
+
+色彩空间：
+
+1. 单反：sRGB
+2. PS: Camera RAW sRGB
+   1. sRGB: IEC61966-2.1
+   2. CMYK: Japan Color 2001 Coated
+3. LR: 相信它的色彩空间
+
+### 色彩心理学
+
+::: info
+7秒色彩理论
+
+人们对一个人或一件事物，可以在0.76秒钟之类以色彩的形态留在人们的映像中
+:::
+
+### 色彩传递的信息
+
+色相|色彩情感
+--:|:--
+红色|热情、注定、喜庆、血气、愤怒、危险
+橙色|活力、欢乐
+黄色|温暖、希望、辉煌、活泼
+绿色|和平、健康、宁静、生命力
+蓝色|冷静、凉爽、永恒、专业、力量
+紫色|神秘、高贵、优雅、时尚
+粉色|天真、温柔
+黑色|深沉、黑暗、现代感
+白色|纯洁、素雅、洁净
+灰色|冷静、中立
+
+#### 主色调氛围
+
+- 褐色/棕色/咖啡色系
+
+    典雅中蕴含安定、沉静、平和、亲切，给人情绪稳定、容易相处的感觉
+
+- 蓝色
+
+    灵性知性兼具，明亮的天空，象征希望、理想、独立；暗沉的蓝，意味着诚实、信赖与威望。淡蓝、粉蓝可以让自己、也让对方完全放松
+
+- 紫粉色
+
+    粉红色象征着温柔、甜美、浪漫、没有压力，紫色是优雅、浪漫，而是像隔着一层薄纱，带有高贵、神秘、有魅力
+
+- 灰黑色
+
+    黑色象征潍坊、高贵、低调、创意；灰色象征着诚恳、沉稳、考究
+
+### 照片色彩搭配的小技巧/常用配色
+
+#### 对比和同一
+
+对比色：反差、明快、通透
+
+同类色：和谐、统一、柔和
+
+#### 关注并利用流行色
+
+![liuxingse](/soft-skill/photography/tutorial/huajian/liuxingse.png)
+
+#### 莫兰迪色系
+
+乔治——莫兰迪剩余意大利波洛尼亚，是意大利注明的版画家、油画家。莫兰迪既推崇早期文艺复现大师的作品，也对此后各种流派的大胆探索有着强烈共鸣
+
+> 越是简单、平凡无奇的物，就越能从多余的诠释中解放。乔治——莫兰迪
+
+### 影响人像色彩搭配的因素
+
+#### 环境色调
+
+即使是绿色，也有很多种绿，不同色相饱和度和明度的绿色
+
+好调色的绿色
+
+- 雨后的绿色
+- 傍晚的绿色
+- 夏季结束的绿色
+
+#### 服装颜色和道具的颜色
+
+- 统一
+- 对比
+- 百搭中心色黑白灰
+- 百搭大地色系
+
+从拍摄环境中选取颜色，作为服装和道具颜色。
+
+#### 人物肤色和发色
+
+#### 景别对画面色彩的影响
+
+#### 光线对画面色彩的影响
+
+#### 白平衡
+
+基本概念是“不管在任何光源下，都能将白色物体还原为白色”，对在特定光源下拍摄出的偏色现象，通过加强对应的补色来进行补偿
+
+#### 色温
+
+色温是光线在不同的能量下，人们眼睛所感受到的颜色变化，以开尔文(K)为色温计算单位，简单来说就是光线的颜色
+
+## 人像用光方法
+
+### 物体的影调
+
+物体的5个影调：高光、暗面、灰面、反光面、投影
+
+![yingdiao-1](/soft-skill/photography/tutorial/huajian/yingdiao-1.png)
+
+#### 影响影调的因素
+
+- 物体的形态————人物的姿态，朝向，五官立体度，戴帽子等
+- 物体的质地————妆面（雾感VS珠光感），服装的材质
+- 光的方向————太阳角度，灯光角度，窗口的朝向
+- 光的质量————柔光屏，纱质窗帘等，阴天的云
+- 观察者的角度——摄影师的拍摄角度（上天入地）
+
+#### 影调的重要性
+
+- 影调是光线作用在物体上的最终结果
+- 影调让平面影响中物体体现出立体感
+- 影调大于色调，影调先于色调
+
+### 自然光光广位，光的要素
+
+#### 光位
+
+光位：顺光、前侧光、侧光、侧逆光、逆光、顶光、低光
+
+![guangwei-1](/soft-skill/photography/tutorial/huajian/guangwei-1.png)
+
+##### 逆光
+
+逆光弱化纹理
+
+![niguang-1](/soft-skill/photography/tutorial/huajian/niguang-1.png)
+
+##### 前侧光&侧逆光
+
+人脸上该有的阴影、高光都有，不会像顺光看起来那么平，不会像逆光拍摄难度那么高
+
+**前侧光高光要多一点，侧逆光阴影要多一点**
+
+![qianceguang&ceniguang-1](/soft-skill/photography/tutorial/huajian/qianceguang&ceniguang-1.png)
+![qianceguang&ceniguang-2](/soft-skill/photography/tutorial/huajian/qianceguang&ceniguang-2.png)
+
+##### 侧光
+
+侧光最能突出纹理的光位，最能凸显物体光影交错感觉的
+![ceguang-1](/soft-skill/photography/tutorial/huajian/ceguang-1.png)
+
+一般来说，光影方向和被摄主体角度越接近侧光光位，主体的纹理就越明显
+![ceguang-2](/soft-skill/photography/tutorial/huajian/ceguang-2.png)
+
+中午拍摄，接近顺光，没有立体感
+![ceguang-3](/soft-skill/photography/tutorial/huajian/ceguang-3.png)
+太阳的角度很低，接近侧光，有立体感
+![ceguang-4](/soft-skill/photography/tutorial/huajian/ceguang-4.png)
+
+旅拍日落日出提前看好时间，早点准备，把握光线
+![taiyang&guangwei](/soft-skill/photography/tutorial/huajian/taiyang&guangwei.png)
+
+![guangweiduibi](/soft-skill/photography/tutorial/huajian/guangweiduibi.png)
+
+结论：**阴影使得物体更加立体，侧光光位可以完整展示五大调子**
+
+![meishi-1](/soft-skill/photography/tutorial/huajian/meishi-1.png)
+
+展示主题的通透，侧逆光、逆光
+![meishi-2](/soft-skill/photography/tutorial/huajian/meishi-2.png)
+
+迈卡龙
+![meishi-3](/soft-skill/photography/tutorial/huajian/meishi-3.png)
+![meishi-4](/soft-skill/photography/tutorial/huajian/meishi-4.png)
+![meishi-5](/soft-skill/photography/tutorial/huajian/meishi-5.png)
+
+房间整体环境光线比较暗，唯一的光线来源是窗口自然光，拍摄时机位放低，形成逆光和侧逆光
+
+##### 结论
+
+- 阴影使得物体更加立体（足够的高光阴影对比）
+- 侧光光位可以完整的展示物体的5大影调，纹理和立体感
+
+#### 光的要素
+
+##### 方向（光位）
+
+##### 强度
+
+##### 颜色
+
+##### 软硬
+
+![guangderuanying](/soft-skill/photography/tutorial/huajian/guangderuanying.png)
+
+##### 面积与形状
+
+![guangdemianji](/soft-skill/photography/tutorial/huajian/guangdemianji.png)
+
+大面积的光源，比如落地窗，等等，光线照亮的方位发，物体受光均匀，阴影少。
+
+小面积或被集中的光源，光线照亮的范围小，物体局部小，受光的部分被照亮，没有受光的部分为阴影
+
+**适当的阴影是得物体更加立体，适当的光影对比使得画面更有层次**
+
+### 皮肤光影塑造
+
+每天花点时间观察周围的光线
+
+1. 主光源光线从哪里来，什么颜色
+2. 影子落在何处（投影）
+3. 哪些区域明亮（高光）
+4. 哪些区域昏暗（阴影）
+5. 高光和阴影的过渡如何
+6. 周围是否还有其他辅助光源
+
+### 眼神光塑造
+
+#### 正面对光源
+
+#### 侧面对光源
+
+#### 低机位仰拍
+
+机位在模特眼睛下面一点
+
+#### 背对光源，反光物体
+
+#### 室外眼神光
+
+机位在模特眼睛上面一点，模特向上看天空
+
+#### 玻璃眼球：侧光光位
+
+### 辅助光源、人造光源
+
+#### 辅助光（补光工具——反光板）
+
+![fanguangban-1](/soft-skill/photography/tutorial/huajian/fanguangban-1.png)
+![fanguangban-2](/soft-skill/photography/tutorial/huajian/fanguangban-2.png)
+![fanguangban-3](/soft-skill/photography/tutorial/huajian/fanguangban-3.png)
+![fanguangban-4](/soft-skill/photography/tutorial/huajian/fanguangban-4.png)
+
+::: warning
+
+1. 不要完全依赖环境灯，仍需要借助自然光
+2. 合理安排模特与光源的位置和距离（远近，朝向等等）
+3. 如果只有环境等，则需要找到一个最亮灯，作为主光源
+
+:::
+
+### Luna常用光线解析
+
+### 逆光手法解析
