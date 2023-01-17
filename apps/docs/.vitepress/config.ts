@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import type { DefaultTheme } from 'vitepress/types/default-theme'
+import type { DefaultTheme } from 'vitepress/types/default-theme';
 import { resolve } from 'path';
 
 const menu = [
@@ -7,7 +7,7 @@ const menu = [
         text: '首页',
         link: '/',
         activeMatch: `^/$`,
-        path: '/'
+        path: '/',
     },
     {
         text: '前端三剑客',
@@ -25,7 +25,7 @@ const menu = [
                         text: '进阶',
                         link: '/three-musketeers/html/advance',
                     },
-                ]
+                ],
             },
             {
                 text: 'CSS',
@@ -46,7 +46,7 @@ const menu = [
                         text: 'stylus',
                         link: '/three-musketeers/css/stylus',
                     },
-                ]
+                ],
             },
             {
                 text: 'JavaScript',
@@ -58,13 +58,13 @@ const menu = [
                         items: [
                             {
                                 text: 'es5',
-                                link: '/three-musketeers/js/basic/es5'
+                                link: '/three-musketeers/js/basic/es5',
                             },
                             {
                                 text: 'es6+',
                                 link: '/three-musketeers/js/basic/es6+',
-                            }
-                        ]
+                            },
+                        ],
                     },
                     {
                         text: '进阶',
@@ -73,13 +73,35 @@ const menu = [
                         items: [
                             {
                                 text: '事件循环',
-                                link: '/three-musketeers/js/advance/event-loop'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+                                link: '/three-musketeers/js/advance/event-loop',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                text: 'TypeScript',
+                items: [
+                    {
+                        text: '基础',
+                        link: '/three-musketeers/ts/basic',
+                        activeMatch: `^/three-musketeers/ts/basic`,
+                        items: [],
+                    },
+                    {
+                        text: '进阶',
+                        link: '/three-musketeers/ts/advance/type-changes',
+                        activeMatch: `^/three-musketeers/ts/advance`,
+                        items: [
+                            {
+                                text: '类型体操',
+                                link: '/three-musketeers/ts/advance/type-changes',
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
     },
     {
         text: '数据结构与算法',
@@ -98,8 +120,8 @@ const menu = [
                             {
                                 text: '二叉树',
                                 link: '/data-structures-and-algorithms/data-structures/tree/binary-tree',
-                            }
-                        ]
+                            },
+                        ],
                     },
                     {
                         text: '回溯算法',
@@ -108,17 +130,15 @@ const menu = [
                             {
                                 text: '真题',
                                 link: '/data-structures-and-algorithms/data-structures/back-tracking/example',
-                            }
-                        ]
-                    }
-                ]
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 text: '算法',
                 link: '/data-structures-and-algorithms/algorithms',
-                items: [
-
-                ]
+                items: [],
             },
             {
                 text: '手写',
@@ -143,10 +163,10 @@ const menu = [
                     {
                         text: '字符串',
                         link: '/data-structures-and-algorithms/handwriting/string',
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     {
         text: '工程化',
@@ -158,21 +178,21 @@ const menu = [
                 items: [
                     {
                         text: '代码规范',
-                        link: '/engineering/standard/code'
+                        link: '/engineering/standard/code',
                     },
                     {
                         text: 'Git规范',
-                        link: '/engineering/standard/git'
+                        link: '/engineering/standard/git',
                     },
                     {
                         text: '项目规范',
-                        link: '/engineering/standard/project'
+                        link: '/engineering/standard/project',
                     },
                     {
                         text: 'UI规范',
-                        link: '/engineering/standard/ui'
-                    }
-                ]
+                        link: '/engineering/standard/ui',
+                    },
+                ],
             },
             {
                 text: '构建工具',
@@ -197,7 +217,7 @@ const menu = [
                         text: 'Babel',
                         link: '/engineering/construct/babel',
                     },
-                ]
+                ],
             },
             {
                 text: '测试',
@@ -210,7 +230,7 @@ const menu = [
                         text: '端到端测试',
                         link: '/engineering/testing/e2e',
                     },
-                ]
+                ],
             },
             {
                 text: '部署',
@@ -231,7 +251,7 @@ const menu = [
                         text: 'Kubernetes',
                         link: '/engineering/deploy/kubernetes',
                     },
-                ]
+                ],
             },
             {
                 text: '监控',
@@ -252,9 +272,9 @@ const menu = [
                         text: '日志上报',
                         link: '/engineering/monitoring/report',
                     },
-                ]
+                ],
             },
-        ]
+        ],
     },
     {
         text: '框架和类库',
@@ -270,19 +290,19 @@ const menu = [
                         items: [
                             {
                                 text: '技术内幕',
-                                link: '/framework-and-lib/frameworks/vue/technology-insider'
-                            }
-                        ]
+                                link: '/framework-and-lib/frameworks/vue/technology-insider',
+                            },
+                        ],
                     },
                     {
                         text: 'React',
-                        link: '/framework-and-lib/frameworks/react'
+                        link: '/framework-and-lib/frameworks/react',
                     },
                     {
                         text: 'Svelte',
-                        link: '/framework-and-lib/frameworks/svelte'
-                    }
-                ]
+                        link: '/framework-and-lib/frameworks/svelte',
+                    },
+                ],
             },
             {
                 text: '类库',
@@ -293,15 +313,15 @@ const menu = [
                     },
                     {
                         text: 'Lodash',
-                        link: '/framework-and-lib/libs/lodash'
+                        link: '/framework-and-lib/libs/lodash',
                     },
                     {
                         text: 'Axios',
-                        link: '/framework-and-lib/libs/axios'
-                    }
-                ]
+                        link: '/framework-and-lib/libs/axios',
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         text: '浏览器与计网',
@@ -317,34 +337,34 @@ const menu = [
                         items: [
                             {
                                 text: '缓存',
-                                link: '/brower-computer-network/brower/abc/cache'
-                            }
-                        ]
+                                link: '/brower-computer-network/brower/abc/cache',
+                            },
+                        ],
                     },
                     {
                         text: 'API',
-                        link: '/brower-computer-network/brower/api'
+                        link: '/brower-computer-network/brower/api',
                     },
-                ]
+                ],
             },
             {
                 text: '计算机网络',
                 items: [
                     {
                         text: '网络协议',
-                        link: '/brower-computer-network/computer-network/protocol'
+                        link: '/brower-computer-network/computer-network/protocol',
                     },
                     {
                         text: '设计模式',
-                        link: '/brower-computer-network/computer-network/design-patterns'
+                        link: '/brower-computer-network/computer-network/design-patterns',
                     },
                     {
                         text: '编译原理',
-                        link: '/brower-computer-network/computer-network/compilation-principle'
+                        link: '/brower-computer-network/computer-network/compilation-principle',
                     },
-                ]
+                ],
             },
-        ]
+        ],
     },
     {
         text: '全栈技能',
@@ -356,28 +376,28 @@ const menu = [
                 items: [
                     {
                         text: 'Node基础',
-                        link: '/full-stack/node/abc'
+                        link: '/full-stack/node/abc',
                     },
                     {
                         text: '框架',
-                        link: '/full-stack/node/framework'
+                        link: '/full-stack/node/framework',
                     },
-                ]
+                ],
             },
             {
                 text: '大数据',
                 items: [
                     {
                         text: 'Kafka',
-                        link: '/full-stack/data/kafka'
+                        link: '/full-stack/data/kafka',
                     },
                     {
                         text: 'ClickHouse',
-                        link: '/full-stack/data/click-house'
+                        link: '/full-stack/data/click-house',
                     },
-                ]
+                ],
             },
-        ]
+        ],
     },
     {
         text: '多端技能',
@@ -389,24 +409,24 @@ const menu = [
                 items: [
                     {
                         text: 'Mina',
-                        link: '/cross-end/miniprogram/mina'
+                        link: '/cross-end/miniprogram/mina',
                     },
                     {
                         text: 'UniApp',
-                        link: '/cross-end/miniprogram/uniapp'
+                        link: '/cross-end/miniprogram/uniapp',
                     },
-                ]
+                ],
             },
             {
                 text: '移动端',
                 items: [
                     {
                         text: 'Hybrid',
-                        link: '/cross-end/mobile/hybrid'
+                        link: '/cross-end/mobile/hybrid',
                     },
                     {
                         text: 'Weex',
-                        link: '/cross-end/mobile/weex'
+                        link: '/cross-end/mobile/weex',
                     },
                     {
                         text: 'ReactNative',
@@ -414,22 +434,22 @@ const menu = [
                         items: [
                             {
                                 text: '环境搭建',
-                                link: '/cross-end/mobile/react-native/environment-setup'
-                            }
-                        ]
+                                link: '/cross-end/mobile/react-native/environment-setup',
+                            },
+                        ],
                     },
-                ]
+                ],
             },
             {
                 text: '桌面端',
                 items: [
                     {
                         text: 'Electron',
-                        link: '/cross-end/desktop/electron'
+                        link: '/cross-end/desktop/electron',
                     },
-                ]
+                ],
             },
-        ]
+        ],
     },
     {
         text: '软技能',
@@ -446,23 +466,22 @@ const menu = [
                         items: [
                             {
                                 text: '泰罗摄影',
-                                link: '/soft-skill/photography/tutorial/tailuo'
+                                link: '/soft-skill/photography/tutorial/tailuo',
                             },
                             {
                                 text: '花间摄影1',
-                                link: '/soft-skill/photography/tutorial/huajian1'
+                                link: '/soft-skill/photography/tutorial/huajian1',
                             },
                             {
                                 text: '花间摄影7',
-                                link: '/soft-skill/photography/tutorial/huajian7'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-
+                                link: '/soft-skill/photography/tutorial/huajian7',
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 
     // {
     //     text: '文章',
@@ -482,21 +501,27 @@ const menu = [
     //     activeMatch: `^/collect`,
     //     path: '/collect',
     // },
-]
+];
 
 const nav = () => {
-    return menu.map(({ text, link, activeMatch, items }) => ({ text, link, activeMatch, items }))
-}
+    return menu.map(({ text, link, activeMatch, items }) => ({
+        text,
+        link,
+        activeMatch,
+        items,
+    }));
+};
 
 const sidebar = () => {
-    const side = {}
+    const side = {};
 
-    menu.filter(item => item.items && item.items.some(sub => sub.items)).forEach(item => {
+    menu.filter(
+        (item) => item.items && item.items.some((sub) => sub.items),
+    ).forEach((item) => {
         side[item.path] = item.items;
-    })
-    return side
-}
-
+    });
+    return side;
+};
 
 const root = resolve(__dirname, '../');
 
@@ -507,15 +532,24 @@ export default defineConfig({
     base: '/blog/',
     srcDir: resolve(root),
     outDir: resolve(root, './dist'),
+    cacheDir: resolve(root, '../../node_modules/.vitepress/cache'),
     markdown: {
         theme: 'material-palenight',
-        lineNumbers: true
+        lineNumbers: true,
     },
     appearance: true, // 是否展示主题切换
     lastUpdated: true,
     head: [
         // fav
-        ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "logo.png" }]
+        [
+            'link',
+            {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '16x16',
+                href: 'logo.png',
+            },
+        ],
     ],
     themeConfig: {
         logo: 'logo.png',
@@ -523,7 +557,7 @@ export default defineConfig({
         // 编辑当前页面的链接
         editLink: {
             pattern: 'blog/docs',
-            text: '编辑当前页面'
+            text: '编辑当前页面',
         },
         outlineTitle: '目录',
         outline: 'deep',
@@ -534,20 +568,18 @@ export default defineConfig({
         socialLinks: [
             {
                 icon: 'github',
-                link: 'https://github.com/ermuz'
-            }
+                link: 'https://github.com/ermuz',
+            },
         ],
         docFooter: {
             next: '下一篇',
-            prev: '上一篇'
+            prev: '上一篇',
         },
         footer: {
-            copyright: `Copyright © 2022-${new Date().getFullYear()} ermuz`
+            copyright: `Copyright © 2022-${new Date().getFullYear()} ermuz`,
         },
         // algolia: {
 
         // }
-    }
+    },
 });
-
-
