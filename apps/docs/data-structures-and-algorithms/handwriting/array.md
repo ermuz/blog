@@ -164,7 +164,7 @@ Array.prototype._findIndex = function (fn, thisArg) {
 
 ```js
 Array.prototype._findLast = function (fn, thisArg) {
-    let res = undefined;
+    let res = -1;
     for (let i = this.length - 1; i > -1; i--) {
         if (fn.call(thisArg, this[i], i, this)) {
             res = this[i];
@@ -273,6 +273,11 @@ Array.prototype._indexOf = function (item){
 
 ```js
 Array.prototype._join = function (separator = ','){
-    
+    if(this.length <= 1) return this.toString();
+    let res= this[0] || '';
+    for(let i = 1 ;i<this.length ;i++){
+        res += separator + this[i] || '';
+    }
+    return res
 }
 ```

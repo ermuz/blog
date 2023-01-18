@@ -34,10 +34,45 @@
 
 #### 编译优化
 
-`Vue3` 通过编译阶段对静态末班的分析，编译生成了 `Block Tree`。`Block Tree` 是将模版基于动态节点指令切割的嵌套区块，每个区块的内部结构都是固定的，而且每个区块只需要以一个Array来追踪自身包含的动态节点。
+`Vue3` 通过编译阶段对静态模版的分析，编译生成了 `Block Tree`。`Block Tree` 是将模版基于动态节点指令切割的嵌套区块，每个区块的内部结构都是固定的，而且每个区块只需要以一个Array来追踪自身包含的动态节点。
 
-借助 Block Tree ,Vue3 将 vnode 的更新性能由与模版整体大小相关提升为与动态内容的数据量相关
+借助 `Block Tree` ,`Vue3` 将 `vnode` 的更新性能由与模版整体大小相关提升为与动态内容的数据量相关
 
 #### 语法 API 优化
 
 Composition API
+
+### Vue3 源码总览
+
+#### 源码目录结构
+
+```md
+.
+├── packages
+│   ├── compiler-core
+│   ├── compiler-dom
+│   ├── compiler-sfc
+│   ├── compiler-ssr
+│   ├── reactivity
+│   ├── reactivity-transform
+│   ├── runtime-core
+│   ├── runtime-dom
+│   ├── runtime-test
+│   ├── server-renderer
+│   ├── sfc-playground
+│   ├── shared
+│   ├── size-check
+│   ├── template-explorer
+│   ├── vue
+│   └── vue-compat
+```
+
+- compiler core
+- compiler dom
+-
+
+## 组件
+
+### 组件的渲染
+
+#### 什么是 `vnode`
