@@ -559,7 +559,8 @@ export default defineConfig({
         siteTitle: '二木的博客', // nav title 默认是 app.title
         // 编辑当前页面的链接
         editLink: {
-            pattern: 'blog/docs',
+            pattern:
+                'https://github.com/ermuz/blog/edit/master/apps/docs/src/:path',
             text: '编辑当前页面',
         },
         outlineTitle: '目录',
