@@ -530,12 +530,15 @@ export default defineConfig({
     description: '二木的博客',
     lang: 'zh-CN',
     base: '/blog/',
-    srcDir: resolve(root),
+    srcDir: resolve(root, './src'),
     outDir: resolve(root, './dist'),
     cacheDir: resolve(root, '../../node_modules/.vitepress/cache'),
     markdown: {
         theme: 'material-palenight',
         lineNumbers: true,
+    },
+    vite: {
+        publicDir: resolve(root, './public'),
     },
     appearance: true, // 是否展示主题切换
     lastUpdated: true,
