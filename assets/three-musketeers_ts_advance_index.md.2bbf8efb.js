@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./app.a19d119d.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"three-musketeers/ts/advance/index.md","lastUpdated":1673958773000}'),s={name:"three-musketeers/ts/advance/index.md"};function r(n,c,o,d,i,p){return a(),t("div")}const f=e(s,[["render",r]]);export{m as __pageData,f as default};
