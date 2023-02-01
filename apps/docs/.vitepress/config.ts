@@ -542,6 +542,7 @@ export default defineConfig({
     },
     appearance: true, // 是否展示主题切换
     lastUpdated: true,
+    cleanUrls: 'without-subfolders',
     head: [
         // fav
         [
