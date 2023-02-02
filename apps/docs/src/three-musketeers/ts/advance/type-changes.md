@@ -1532,3 +1532,389 @@ TypeScript 默认推导出来的类型并不是字面量类型。
 :::info
 const 是常量的意思，也就是说这个变量首先是一个字面量值，而且还不可修改，有字面量和 readonly 两重含义。所以加上 as const 会推导出 readonly 的字面量类型。
 :::
+
+## 内置高级类型
+
+### Parameters
+
+Parameters 用于提取函数类型的参数类型。
+
+```ts
+type Parameters<T extends (...args: any) => any> 
+    = T extends (...args: infer P) => any 
+        ? P
+        : never;
+```
+
+类型参数 T 为待处理的类型，通过 extends 约束为函数，参数和返回值任意。
+
+通过 extends 匹配一个模式类型，提取参数的类型到 infer 声明的局部变量 P 中返回。
+
+### ReturnType
+
+ReturnType 用于提取函数类型的返回值类型。
+
+```ts
+type ReturnType<T extends (...args: any) => any> 
+    = T extends (...args: any) => infer R
+        ? R
+        : any;
+```
+
+类型参数 T 为待处理的类型，通过 extends 约束为函数类型，参数和返回值任意。
+
+用 T 匹配一个模式类型，提取返回值的类型到 infer 声明的局部变量 R 里返回。
+
+### ConstructorParameters
+
+构造器类型和函数类型的区别就是可以被 new。
+
+Parameters 用于提取函数参数的类型，而 ConstructorParameters 用于提取构造器参数的类型。
+
+```ts
+type ConstructorParameters<
+    T extends abstract new (...args: any) => any
+> = T extends abstract new (...args: infer P) => any
+    ? P
+    : never;
+```
+
+类型参数 T 是待处理的类型，通过 extends 约束为构造器类型，加个 abstract 代表不能直接被实例化（其实不加也行）。
+
+用 T 匹配一个模式类型，提取参数的部分到 infer 声明的局部变量 P 里，返回 P。
+
+### InstanceType
+
+提取了构造器参数的类型，自然也可以提取构造器返回值的类型，就是 InstanceType。
+
+```ts
+type InstanceType<
+    T extends abstract new (...args: any) => any
+> = T extends abstract new (...args: any) => infer R
+    ? R
+    : any;
+```
+
+整体和 ConstructorParameters 差不多，只不过提取的不再是参数了，而是返回值。
+
+通过模式匹配提取返回值的类型到 infer 声明的局部变量 R 里返回。
+
+### ThisParameterType
+
+函数里可以调用 this，这个 this 的类型也可以约束
+
+```ts
+type ThisParameterType<T> = 
+    T extends (this: infer U, ...args: any[]) => any 
+        ? U 
+        : unknown;
+```
+
+### OmitThisParameter
+
+提取出 this 的类型之后，自然可以构造一个新的，比如删除 this 的类型可以用 OmitThisParameter。
+
+```ts
+type OmitThisParameter<T> = 
+    unknown extends ThisParameterType<T> 
+        ? T 
+        : T extends (...args: infer A) => infer R 
+            ? (...args: A) => R 
+            : T;
+```
+
+类型参数 T 为待处理的类型。
+
+用 ThisParameterType 提取 T 的 this 类型，如果提取出来的类型是 unknown 或者 any，那么 unknown extends ThisParameterType 就成立，也就是没有指定 this 的类型，所以直接返回 T。
+
+否则，就通过模式匹配提取参数和返回值的类型到 infer 声明的局部变量 A 和 R 中，用它们构造新的函数类型返回。
+
+### Partial
+
+索引类型可以通过映射类型的语法做修改，比如把索引变为可选。
+
+```ts
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+```
+
+类型参数 T 为待处理的类型。
+
+通过映射类型的语法构造一个新的索引类型返回，索引 P 是来源于之前的 T 类型的索引，也就是 P in keyof T，索引值的类型也是之前的，也就是 T[P]。
+
+### Required
+
+可以把索引变为可选，也同样可以去掉可选，也就是 Required 类型
+
+```ts
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+```
+
+类型参数 T 为待处理的类型。
+
+通过映射类型的语法构造一个新的索引类型，索引取自之前的索引，也就是 P in keyof T，但是要去掉可选，也就是 -?，值的类型也是之前的，就是 T[P]。
+
+### Readonly
+
+同样的方式，也可以添加 readonly 的修饰：
+
+```ts
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+};
+```
+
+类型参数 T 为待处理的类型。
+
+通过映射类型的语法构造一个新的索引类型返回，索引和值的类型都是之前的，也就是 P in keyof T 和 T[P]，但是要加上 readonly 的修饰。
+
+### Pick
+
+映射类型的语法用于构造新的索引类型，在构造的过程中可以对索引和值做一些修改或过滤。
+
+```ts
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+```
+
+类型参数 T 为待处理的类型，类型参数 K 为要过滤出的索引，通过 extends 约束为只能是 T 的索引的子集。
+
+构造新的索引类型返回，索引取自 K，也就是 P in K，值则是它对应的原来的值，也就是 T[P]。
+
+### Record
+
+Record 用于创建索引类型，传入 key 和值的类型：
+
+```ts
+type Record<K extends keyof any, T> = {
+    [P in K]: T;
+};
+```
+
+这里很巧妙的用到了 keyof any，它的结果是 string | number | symbol
+
+它用映射类型的语法创建了新的索引类型，索引来自 K，也就是 P in K，值是传入的 T。
+
+### Exclude
+
+当想从一个联合类型中去掉一部分类型时，可以用 Exclude 类型：
+
+```ts
+type Exclude<T, U> = T extends U ? never : T;
+```
+
+联合类型当作为类型参数出现在条件类型左边时，会被分散成单个类型传入，这叫做分布式条件类型。
+
+所以写法上可以简化， T extends U 就是对每个类型的判断。
+
+过滤掉 U 类型，剩下的类型组成联合类型。也就是取差集。
+
+### Extract
+
+可以过滤掉，自然也可以保留，Exclude 反过来就是 Extract，也就是取交集：
+
+```ts
+type Extract<T, U> = T extends U ? T : never;
+```
+
+### Omit
+
+我们知道了 Pick 可以取出索引类型的一部分索引构造成新的索引类型，那反过来就是去掉这部分索引构造成新的索引类型。
+
+可以结合 Exclude 来轻松实现：
+
+```ts
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+```
+
+类型参数 T 为待处理的类型，类型参数 K 为索引允许的类型（string | number | symbol 或者 string）。
+
+通过 Pick 取出一部分索引构造成新的索引类型，这里用 Exclude 把 K 对应的索引去掉，把剩下的索引保留。
+
+### Awaited
+
+取 Promise 的 ValuType 的高级类型
+
+```ts
+type Awaited<T> =
+    T extends null | undefined
+        ? T 
+        : T extends object & { then(onfulfilled: infer F): any }
+            ? F extends ((value: infer V, ...args: any) => any)
+                ? Awaited<V>
+                : never 
+            : T;
+```
+
+类型参数 T 是待处理的类型。
+
+如果 T 是 null 或者 undefined，就返回 T。
+
+如果 T 是对象并且有 then 方法，那就提取 then 的参数，也就是 onfulfilled 函数的类型到 infer 声明的局部变量 F。
+
+继续提取 onfullfilled 函数类型的第一个参数的类型，也就是 Promise 返回的值的类型到 infer 声明的局部变量 V。
+
+递归的处理提取出来的 V，直到不再满足上面的条件。
+
+### NonNullable
+
+NonNullable 就是用于判断是否为非空类型，也就是不是 null 或者 undefined 的类型的，实现比较简单：
+
+```ts
+type NonNullable<T> = T extends null | undefined ? never : T;
+```
+
+### Uppercase、Lowercase、Capitalize、Uncapitalize
+
+这四个类型是分别实现大写、小写、首字母大写、去掉首字母大写的。
+
+```ts
+type Uppercase<S extends string> = intrinsic;
+
+type Lowercase<S extends string> = intrinsic;
+
+type Capitalize<S extends string> = intrinsic;
+
+type Uncapitalize<S extends string> = intrinsic;
+```
+
+这个 intrinsic 是固有的意思，就像 js 里面的有的方法打印会显示 [native code] 一样。这部分类型不是在 ts 里实现的，而是编译过程中由 js 实现的。
+
+其实就是 ts 编译器处理到这几个类型时就直接用 js 给算出来了。
+
+为啥要这样做呢？
+
+因为快啊，解析类型是要处理 AST 的，性能比较差，用 js 直接给算出来那多快呀。
+
+## 类型编程的意义
+
+ts 基础是学习怎么给 js 代码声明各种类型，比如索引类型、函数类型、数组类型等，但是如果需要动态生成一些类型，或者对类型做一些变化呢？
+
+这就是类型编程做的事情了，**类型编程可以动态生成类型，对已有类型做修改**。
+
+类型编程是对类型参数做一系列运算之后产生新的类型。需要动态生成类型的场景必然会用到类型编程，比如返回值的类型和参数的类型有一定的关系，需要经过计算才能得到。
+
+有的情况下不用类型编程也行，比如返回值可以是一个字符串类型 string，但用了类型编程的话，可能能更精确的提示出是什么 string，也就是具体的字符串字面量类型，那类型提示的精准度自然就提高了一个级别，体验也会更好。
+
+这就是类型编程的意义：**需要动态生成类型的场景，必然要用类型编程做一些运算。有的场景下可以不用类型编程，但是用了能够有更精准的类型提示和检查**。
+
+### ParseQueryString
+
+```ts
+function parseQueryString<Str extends string>(queryStr: Str): ParseQueryString<Str>;
+function parseQueryString(queryStr: string) {
+    if (!queryStr || !queryStr.length) {
+        return {};
+    }
+    const queryObj:Record<string, any> = {};
+    const items = queryStr.split('&');
+    items.forEach(item => {
+        const [key, value] = item.split('=');
+        if (queryObj[key]) {
+            if(Array.isArray(queryObj[key])) {
+                queryObj[key].push(value);
+            } else {
+                queryObj[key] = [queryObj[key], value]
+            }
+        } else {
+            queryObj[key] = value;
+        }
+    });
+    return queryObj;
+}
+
+
+const test2 = parseQueryString('a&b=2&c=3&a=2');
+```
+
+声明一个类型参数 Str，约束为 string 类型，函数参数的类型指定是这个 Str，返回值的类型通过对 Str 做类型运算得到，也就是 `ParseQueryString<Str>`。
+
+这个 ParseQueryString 的类型做的事情就是把传入的 Str 通过各种类型运算产生对应的索引类型。
+
+### Promise.all
+
+Promise 的 all 和 race 方法的类型声明是这样的：
+
+```ts
+interface PromiseConstructor {
+    all<T extends readonly unknown[] | []>
+        (values: T): Promise<{
+            -readonly [P in keyof T]: Awaited<T[P]>
+        }>;
+
+    race<T extends readonly unknown[] | []>
+        (values: T): Promise<Awaited<T[number]>>;
+}
+```
+
+所以自然要用类型编程来提取出 Promise 的 value 的类型，构造成新的 Promise 类型。
+
+具体来看下这两个类型定义：
+
+```ts
+interface PromiseConstructor {
+    all<T extends readonly unknown[] | []>
+        (values: T): Promise<{
+            -readonly [P in keyof T]: Awaited<T[P]>
+        }>;
+}
+```
+
+类型参数 T 是待处理的 Promise 数组，约束为 unknown[] 或者空数组 []。
+
+这个类型参数 T 就是传入的函数参数的类型。
+
+返回一个新的数组类型，也可以用映射类型的语法构造个新的索引类型（class、对象、数组等聚合多个元素的类型都是索引类型）。
+
+新的索引类型的索引来自之前的数组 T，也就是 P in keyof T，值的类型是之前的值的类型，但要做下 Promise 的 value 类型提取，用内置的高级类型 Awaited，也就是 Awaited<T[P]>。
+
+同时要把 readonly 的修饰去掉，也就是 -readonly。
+
+这就是 Promise.all 的类型定义。因为返回值的类型和参数的类型是有关联的，所以必然会用到类型编程。
+
+Promise.race 的类型定义也是这样：
+
+```ts
+interface PromiseConstructor {
+    race<T extends readonly unknown[] | []>
+        (values: T): Promise<Awaited<T[number]>>;
+}
+```
+
+类型参数 T 是待处理的参数的类型，约束为 unknown[] 或者空数组 []。
+
+返回值的类型可能是传入的任何一个 Promise 的 value 类型，那就先取出所有的 Promise 的 value 类型，也就是 T[number]。
+
+因为数组类型也是索引类型，所以可以用索引类型的各种语法。
+
+用 Awaited 取出这个联合类型中的每一个类型的 value 类型，也就是 Awaited<T[number]>，这就是 race 方法的返回值的类型。
+
+同样，因为返回值的类型是由参数的类型做一些类型运算得到的，也离不开类型编程。
+
+### currying
+
+有这样一个 curring 函数，接受一个函数，返回柯里化后的函数。
+
+```ts
+type CurriedFunc<Params, Return> = 
+    Params extends [infer Arg, ...infer Rest]
+        ? (arg: Arg) => CurriedFunc<Rest, Return>
+        : never;
+
+declare function currying<Func>(fn: Func): 
+    Func extends (...args: infer Params) => infer Result ? CurriedFunc<Params, Result> : never;
+```
+
+curring 函数有一个类型参数 Func，由函数参数的类型指定。
+
+返回值的类型要对 Func 做一些类型运算，通过模式匹配提取参数和返回值的类型，传入 CurriedFunc 来构造新的函数类型。
+
+构造的函数的层数不确定，所以要用递归，每次提取一个参数到 infer 声明的局部变量 Arg，其余参数到 infer 声明的局部变量 Rest。
+
+用 Arg 作为构造的新的函数函数的参数，返回值的类型继续递归构造。
+
+这样就递归提取出了 Params 中的所有的元素，递归构造出了柯里化后的函数类型。
