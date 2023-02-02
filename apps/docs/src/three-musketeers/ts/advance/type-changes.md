@@ -1522,3 +1522,13 @@ type ClassPublicProps<Obj extends Record<string, any>> = {
 值保持不变，依然是 Obj[Key]。
 
 #### as const
+
+TypeScript 默认推导出来的类型并不是字面量类型。
+
+但是类型编程很多时候是需要推导出字面量类型的，这时候就需要用 as const
+
+但是加上 as const 之后推导出来的类型是带有 readonly 修饰的，所以再通过模式匹配提取类型的时候也要加上 readonly 的修饰才行。
+
+:::info
+const 是常量的意思，也就是说这个变量首先是一个字面量值，而且还不可修改，有字面量和 readonly 两重含义。所以加上 as const 会推导出 readonly 的字面量类型。
+:::
