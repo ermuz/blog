@@ -1918,3 +1918,515 @@ curring 函数有一个类型参数 Func，由函数参数的类型指定。
 用 Arg 作为构造的新的函数函数的参数，返回值的类型继续递归构造。
 
 这样就递归提取出了 Params 中的所有的元素，递归构造出了柯里化后的函数类型。
+
+## 综合实战一
+
+### KebabCaseToCamelCase
+
+常用的变量命名规范有两种，一种是 KebabCase，也就是 aaa-bbb-ccc 这种中划线分割的风格，另一种是 CamelCase， 也就是 aaaBbbCcc 这种除第一个单词外首字母大写的风格。
+
+```ts
+type KebabCaseToCamelCase<Str extends string> =
+    Str extends `${infer Item}-${infer Rest}`
+        ? `${Item}${KebabCaseToCamelCase<Capitalize<Rest>>}`
+        : Str;
+```
+
+类型参数 Str 是待处理的字符串类型，约束为 string。
+
+通过模式匹配提取 Str 中 - 分隔的两部分，前面的部分放到 infer 声明的局部变量 Item 里，后面的放到 infer 声明的局部变量 Rest 里。
+
+提取的第一个单词不大写，后面的字符串首字母大写，然后递归的这样处理，然后也就是 `${Item}${KebabCaseToCamelCase<Capitalize>`。
+
+如果模式匹配不满足，就返回 Str。
+
+### CamelCaseToKebabCase
+
+同样是对字符串字面量类型的提取和构造，也需要递归处理，但是 CamelCase 没有 - 这种分割符，那怎么分割呢？
+
+可以判断字母的大小写，用大写字母分割。
+
+```ts
+type CamelCaseToKebabCase<Str extends string> =
+    Str extends `${infer First}${infer Rest}`
+        ? First extends Lowercase<First>
+            ? `${First}${CamelCaseToKebabCase<Rest>}`
+            : `-${Lowercase<First>}${CamelCaseToKebabCase<Rest>}`
+        : Str;
+```
+
+类型参数 Str 为待处理的字符串类型。
+
+通过模式匹配提取首个字符到 infer 声明的局部变量 First，剩下的放到 Rest。
+
+判断下当前字符是否是小写，如果是的话就不需要转换，递归处理后续字符，也就是 `${First}${CamelCaseToKebabCase}`。
+
+如果是大写，那就找到了要分割的地方，转为 - 分割的形式，然后把 First 小写，后面的字符串递归的处理，也就是 `-${Lowercase}${CamelCaseToKebabCase}`。
+
+如果模式匹配不满足，就返回 Str。
+
+### Chunk
+
+对数组做分组，比如 1、2、3、4、5 的数组，每两个为 1 组，那就可以分为 1、2 和 3、4 以及 5 这三个 Chunk。
+
+这明显是对数组类型的提取和构造，元素数量不确定，需要递归的处理，并且还需要通过构造出的数组的 length 来作为 chunk 拆分的标志。
+
+```ts
+type Chunk<
+    T extends unknown[],
+    L extends number,
+    C extends unknown[] = [],
+    R extends unknown[] = []
+> = T extends [infer F, ...infer Rest] ?
+          C['length'] extends L ?
+            Chunk<Rest, L, [F], [...R, C]> :
+            Chunk<Rest, L, [...C, F], R>
+    : C['length'] extends 0 ? [...R] : [...R, C]
+```
+
+类型参数 T 为待处理的数组类型，约束为 unknown。类型参数 L 是每个分组的长度。
+
+后两个类型参数是用于保存中间结果的：类型参数 C 是当前的分组，默认值 []，类型参数 R 是结果数组，默认值 []。
+
+通过模式匹配提取 T 中的首个元素到 infer 声明的局部变量 F 里，剩下的放到 Rest 里。
+
+通过 C 的 length 判断是否到了每个分组要求的长度 L
+
+如果到了，就把 C 加到当前结果 R 里，也就是 [...R, C]，然后开启一个新分组，也就是 [F]。
+
+如果没到，那就继续构造当前分组，也就是 [...C, F]，当前结果不变，也就是 R
+
+这样递归的处理，直到不满足模式匹配，那就把当前 C 也放到结果里返回，也就是 [...R, C]。
+
+### TupleToNestedObject
+
+根据数组类型，比如 [‘a’, ‘b’, ‘c’] 的元组类型，再加上值的类型 'xxx'，构造出这样的索引类型：
+
+```json
+{
+    "a": {
+        "b": {
+            "c": "xxx"
+        }
+    }
+}
+```
+
+```ts
+type TupleToNestedObject<Tuple extends unknown[], Value> = 
+    Tuple extends [infer First, ...infer Rest]
+      ? {
+          [Key in First as Key extends keyof any ? Key : never]: 
+              Rest extends unknown[]
+                  ? TupleToNestedObject<Rest, Value>
+                  : Value
+      }
+      : Value;
+```
+
+类型参数 Tuple 为待处理的元组类型，元素类型任意，约束为 unknown[]。类型参数 Value 为值的类型。
+
+通过模式匹配提取首个元素到 infer 声明的局部变量 First，剩下的放到 infer 声明的局部变量 Rest。
+
+用提取出来的 First 作为 Key 构造新的索引类型，也就是 Key in First，值的类型为 Value，如果 Rest 还有元素的话就递归的构造下一层。
+
+为什么后面还有个 as Key extends keyof any ? Key : never 的重映射呢？
+
+因为比如 null、undefined 等类型是不能作为索引类型的 key 的，就需要做下过滤，如果是这些类型，就返回 never，否则返回当前 Key。
+
+### PartialObjectPropByKeys
+
+把一个索引类型的某些 Key 转为 可选的，其余的 Key 不变，
+
+内置的高级类型里有很多处理映射类型的，比如 Pick 可以根据某些 Key 构造一个新的索引类型，Omit 可以删除某些 Key 构造一个新的索引类型，Partial 可以把索引类型的所有 Key 转为可选。
+
+把第一个索引类型转为 Partial，第二个索引类型不变，然后取交叉类型。
+
+交叉类型会把同类型做合并，不同类型舍弃，所以结果就是我们需要的索引类型。
+
+```ts
+type PartialObjectPropByKeys<
+    Obj extends Record<string, any>,
+    Key extends keyof any
+> = Partial<Pick<Obj,Extract<keyof Obj, Key>>> & Omit<Obj,Key>;
+```
+
+类型参数 Obj 为待处理的索引类型，约束为 Record<string, any>。
+
+类型参数 Key 为要转为可选的索引，那么类型自然是 string、number、symbol 中的类型，通过 keyof any 来约束更好一些。默认值是 Obj 的索引。
+
+:::info
+keyof any 是动态返回索引支持的类型，如果开启了 keyOfStringsOnly 的编译选项，那么返回的就是 string，否则就是 string | number | symbol 的联合类型，这样动态取的方式比写死更好。
+:::
+
+Extract 是用于从 Obj 的所有索引 keyof Obj 里取出 Key 对应的索引的，这样能过滤掉一些 Obj 没有的索引。
+
+从 Obj 中 Pick 出 Key 对应的索引构造成新的索引类型并转为 Partial 的，也就是 `Partial<Pick<Obj,Extract<keyof Obj, Key>>>`，其余的 Key 构造一个新的索引类型，也就是 `Omit<Obj,Key>`。然后两者取交叉就是我们需要的索引类型
+
+## 综合实战二
+
+### 函数重载的三种写法
+
+ts 支持函数重载，也就是同名的函数可以有多种类型定义。
+
+#### 函数重载一
+
+```ts
+declare function func(name: string): string;
+declare function func(name: number): number;
+```
+
+这种大家比较常用，声明两个同名函数，就能达到重载的目的
+
+当然，如果有函数的实现，那就不用带 declare 了
+
+```ts
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: any, b: any) {
+    return a + b;
+}
+```
+
+#### 函数重载二
+
+函数可以用 interface 的方式声明，同样，也可以用 interface 的方式声明函数重载：
+
+```ts
+interface Func {
+    (name: string): string;
+    (name: number): number;
+}
+
+declare const func2: Func;
+
+funcs()
+```
+
+#### 函数重载三
+
+函数类型可以取交叉类型，也就是多种类型都可以，其实也是函数重载的意思：
+
+```ts
+type Func2 = ((name: string) => string) & ((name: number) => number);
+
+declare const func3: Func2;
+
+func3()
+```
+
+声明多个同名函数类型、interface 声明多个函数签名、交叉类型，一共这三种函数重载的方式。
+
+### UnionToTuple
+
+要求把联合类型转成元组类型，大家有思路没？
+
+也就是 'a' | 'b' | 'c' 转成 ['a', 'b', 'c']。
+
+我们知道 ReturnType 是 ts 内置的一个高级类型，它可以取到函数返回值的类型。但如果这个函数有多个重载呢？
+
+**取重载函数的 ReturnType 返回的是最后一个重载的返回值类型。**
+
+重载函数不是能通过函数交叉的方式写么，而我们又能实现联合转交叉。
+
+所以就能拿到联合类型的最后一个类型
+
+```ts
+type UnionToIntersection<U> = 
+    (U extends U ? (x: U) => unknown : never) extends (x: infer R) => unknown
+        ? R
+        : never
+
+type UnionToFuncIntersection<T> = UnionToIntersection<T extends any ? () => T : never>;
+```
+
+这里简单讲一下：U extends U 是触发分布式条件类型，构造一个函数类型，通过模式匹配提取参数的类型，利用函数参数的逆变的性质，就能实现联合转交叉。
+
+因为函数参数的类型要能接收多个类型，那肯定要定义成这些类型的交集，所以会发生逆变，转成交叉类型。
+
+然后是 UnionToFuncIntersection 的类型：
+
+我们对联合类型 T 做下处理，用 T extends any 触发分布式条件类型的特性，它会把联合类型的每个类型单独传入做计算，最后把计算结果合并成联合类型。把每个类型构造成一个函数类型传入。
+
+这样，返回的交叉类型也就达到了函数重载的目的：
+
+然后再通过 ReturnType 取返回值的类型，就取到了联合类型的最后一个类型：
+
+取到最后一个类型后，再用 Exclude 从联合类型中把它去掉，然后再同样的方式取最后一个类型，构造成元组类型返回，这样就达到了联合转元组的目的：
+
+```ts
+type UnionToTuple<T> = 
+    UnionToIntersection<
+        T extends any ? () => T : never
+    > extends () => infer ReturnType
+        ? [...UnionToTuple<Exclude<T, ReturnType>>, ReturnType]
+        : [];
+```
+
+类型参数 T 为待处理的联合类型。
+
+T extends any 触发了分布式条件类型，会把每个类型单独传入做计算，把它构造成函数类型，然后转成交叉类型，达到函数重载的效果。
+
+通过模式匹配提取出重载函数的返回值类型，也就是联合类型的最后一个类型，放到数组里。
+
+通过 Exclude 从联合类型中去掉这个类型，然后递归的提取剩下的。
+
+### join
+
+```ts
+const res = join('-')('guang', 'and', 'dong');
+```
+
+有这样一个 join 函数，它是一个高阶函数，第一次调用传入分隔符，第二次传入多个字符串，然后返回它们 join 之后的结果。
+
+比如上面的 res 是 guang-and-dong。
+
+如果要给这样一个 join 函数加上类型定义应该怎么加呢？要求精准的提示函数返回值的类型。
+
+```ts
+declare function join<
+    Delimiter extends string
+>(delimiter: Delimiter):
+    <Items extends string[]>
+        (...parts: Items) => JoinType<Items, Delimiter>;
+```
+
+类型参数 Delimiter 是第一次调用的参数的类型，约束为 string。
+
+join 的返回值是一个函数，也有类型参数。类型参数 Items 是返回的函数的参数类型。
+
+返回的函数类型的返回值是 JoinType 的计算结果，传入两次函数的参数 Delimiter 和 Items。
+
+这里的 JoinType 的实现就是根据字符串元组构造字符串，用到提取和构造，因为数量不确定，还需要递归。
+
+所以 JoinType 高级类型的实现就是这样的：
+
+```ts
+type JoinType<
+    Items extends any[],
+    Delimiter extends string,
+    Result extends string = ''
+> = Items extends [infer Cur, ...infer Rest]
+        ? JoinType<Rest, Delimiter, `${Result}${Delimiter}${Cur & string}`>
+        : RemoveFirstDelimiter<Result>;
+```
+
+类型参数 Items 和 Delimiter 分别是字符串元组和分割符的类型。Result 是用于在递归中保存中间结果的。
+
+通过模式匹配提取 Items 中的第一个元素的类型到 infer 声明的局部变量 Cur，后面的元素的类型到 Rest。
+
+构造字符串就是在之前构造出的 Result 的基础上，加上新的一部分 Delimiter 和 Cur，然后递归的构造。这里提取出的 Cur 是 unknown 类型，要 & string 转成字符串类型。
+
+如果不满足模式匹配，也就是构造完了，那就返回 Result，但是因为多加了一个 Delimiter，要去一下。
+
+```ts
+type RemoveFirstDelimiter<
+    Str extends string
+> = Str extends `${infer _}${infer Rest}`
+        ? Rest
+        : Str;
+```
+
+### DeepCamelize
+
+Camelize 是 guang-and-dong 转 guangAndDong，这个我们上节实现过。现在要求递归的把索引类型的 key 转成 CamelCase 的。
+
+```ts
+type DeepCamelize<Obj extends Record<string, any>> =
+    Obj extends unknown[]
+        ? CamelizeArr<Obj>
+        : {
+            [Key in keyof Obj
+                as Key extends `${infer First}_${infer Rest}`
+                    ? `${First}${Capitalize<Rest>}`
+                    : Key
+            ] : DeepCamelize<Obj[Key]>
+        };
+```
+
+类型参数 Obj 为待处理的索引类型，约束为 Record<string, any>。
+
+判断下是否是数组类型，如果是的话，用 CamelizeArr 处理。
+
+否则就是索引类型，用映射类型的语法来构造新的索引类型，Key 为之前的 Key，也就是 Key in keyof Obj，但要做一些变化，也就是 as 重映射之后的部分。
+
+这里的 KebabCase 转 CamelCase 就是提取 _ 之前的部分到 First，之后的部分到 Rest，然后构造新的字符串字面量类型，对 Rest 部分做首字母大写，也就是 Capitialize。
+
+值的类型 Obj[Key] 要递归的处理，也就是 `DeepCamelize<Obj[Key]>`。
+
+其中的 CamelizeArr 的实现就是递归处理每一个元素：
+
+```ts
+type CamelizeArr<Arr> = Arr extends [infer First, ...infer Rest]
+    ? [DeepCamelize<First>, ...CamelizeArr<Rest>]
+    : []
+```
+
+通过模式匹配提取 Arr 的第一个元素的类型到 First，剩余元素的类型到 Rest。
+
+处理 First 放到数组中，剩余的递归处理。
+
+### AllKeyPath
+
+拿到一个索引类型的所有 key 的路径。
+
+这里需要遍历 Key，用映射类型的语法，然后要递归构造 path，最后取所有 key 的遍历结果。
+
+```ts
+type AllKeyPath<Obj extends Record<string, any>> = {
+  [Key in keyof Obj]: 
+    Key extends string
+      ? Obj[Key] extends Record<string, any>
+        ? Key | `${Key}.${AllKeyPath<Obj[Key]>}`
+        : Key
+      : never
+}[keyof Obj];
+```
+
+参数 Obj 是待处理的索引类型，通过 Record<string, any> 约束。
+
+用映射类型的语法，遍历 Key，并在 value 部分根据每个 Key 去构造以它为开头的 path。
+
+因为推导出来的 Key 默认是 unknown，而其实明显是个 string，所以 Key extends string 判断一下，后面的分支里 Key 就都是 string 了。
+
+如果 Obj[Key] 依然是个索引类型的话，就递归构造，否则，返回当前的 Key。
+
+我们最终需要的是 value 部分，所以取 [keyof Obj] 的值。keyof Obj 是 key 的联合类型，那么传入之后得到的就是所有 key 对应的 value 的联合类型。
+
+### Defaultize
+
+实现这样一个高级类型，对 A、B 两个索引类型做合并，如果是只有 A 中有的不变，如果是 A、B 都有的就变为可选，只有 B 中有的也变为可选。
+
+**索引类型处理可以 Pick 出每一部分单独处理，最后取交叉类型来把处理后的索引类型合并到一起。**
+
+```ts
+type Defaultize<A, B> = 
+    & Pick<A, Exclude<keyof A, keyof B>>
+    & Partial<Pick<A, Extract<keyof A, keyof B>>>
+    & Partial<Pick<B, Exclude<keyof B, keyof A>>>
+```
+
+Pick 出 A、B 中只有 A 有的部分，也就是去 A 中去掉了 B 的 key： Exclude<keyof A, keyof B>。
+
+然后 Pick 出 A、B 都有的部分，也就是 Extract<keyof A, keyof B>。用 Partial 转为可选。
+
+之后 Pick 出只有 B 有的部分，也就是 Exclude<keyof B, keyof A>。用 Partial 转为可选。
+
+最后取交叉类型来把每部分的处理结果合并到一起。
+
+## 逆变、协变、双向协变、不变
+
+### 类型安全和型变
+
+TypeScript 给 JavaScript 添加了一套静态类型系统，是为了保证类型安全的，也就是保证变量只能赋同类型的值，对象只能访问它有的属性、方法。
+
+比如 number 类型的值不能赋值给 boolean 类型的变量，Date 类型的对象就不能调用 exec 方法。
+
+这是类型检查做的事情，遇到类型安全问题会在编译时报错。
+
+但是这种类型安全的限制也不能太死板，有的时候需要一些变通，比如子类型是可以赋值给父类型的变量的，可以完全当成父类型来使用，也就是“型变（variant）”（类型改变）。
+
+这种“型变”分为两种，一种是子类型可以赋值给父类型，叫做协变（covariant），一种是父类型可以赋值给子类型，叫做逆变（contravariant）。
+
+#### 协变（covariant）
+
+其中协变是很好理解的，比如我们有两个 interface：
+
+```ts
+interface Person {
+    name: string;
+    age: number;
+}
+
+interface Guang {
+    name: string;
+    age: number;
+    hobbies: string[]
+}
+```
+
+这里 Guang 是 Person 的子类型，更具体，那么 Guang 类型的变量就可以赋值给 Person 类型：
+
+```ts
+let person: Person = {
+    name: '',
+    age: 20
+}
+
+let guang: Guang = {
+    name: 'guang',
+    age: 20,
+    hobbies: ['play game','writing']
+}
+
+person = guang
+```
+
+这并不会报错，虽然这俩类型不一样，但是依然是类型安全的。
+
+这种子类型可以赋值给父类型的情况就叫做协变。
+
+#### 逆变（contravariant）
+
+我们有这样两个函数：
+
+```ts
+let printHobbies: (guang: Guang) => void;
+
+printHobbies = (guang) => {
+    console.log(guang.hobbies);
+}
+
+let printName: (person: Person) => void;
+
+printName = (person) => {
+    console.log(person.name);
+}
+```
+
+printHobbies 的参数 Guang 是 printName 参数 Person 的子类型。
+
+那么问题来了，printName 能赋值给 printHobbies 么？printHobbies 能赋值给 printName 么？
+
+```ts
+printHobbies = printName
+printName = printHobbies // [!code error]
+```
+
+printName 的参数 Person 不是 printHobbies 的参数 Guang 的父类型么，为啥能赋值给子类型？
+
+因为这个函数调用的时候是按照 Guang 来约束的类型，但实际上函数只用到了父类型 Person 的属性和方法，当然不会有问题，依然是类型安全的。
+
+这就是逆变，函数的参数有逆变的性质（而返回值是协变的，也就是子类型可以赋值给父类型）。
+
+那反过来呢，如果 printHoobies 赋值给 printName 会发生什么？
+
+因为函数声明的时候是按照 Person 来约束类型，但是调用的时候是按照 Guang 的类型来访问的属性和方法，那自然类型不安全了，所以就会报错。
+
+但是在 ts2.x 之前支持这种赋值，也就是父类型可以赋值给子类型，子类型可以赋值给父类型，既逆变又协变，叫做“双向协变”。
+
+但是这明显是有问题的，不能保证类型安全，所以之后 ts 加了一个编译选项 strictFunctionTypes，设置为 true 就只支持函数参数的逆变，设置为 false 则是双向协变。
+
+#### 不变（invariant）
+
+非父子类型之间不会发生型变，只要类型不一样就会报错：
+
+```ts
+interface Dong {
+    name: string;
+    sex: boolean
+}
+
+let dong: Dong = {
+    name: 'dong',
+    sex: true
+}
+
+guang = dong // [!code error]
+```
+
+#### 类型父子关系的判断
+
+像 java 里面的类型都是通过 extends 继承的，如果 A extends B，那 A 就是 B 的子类型。这种叫做名义类型系统（nominal type）。
+
+而 ts 里不看这个，只要结构上是一致的，那么就可以确定父子关系，这种叫做结构类型系统（structual type）。
